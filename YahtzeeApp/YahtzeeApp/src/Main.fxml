@@ -6,11 +6,11 @@
 <?import javafx.scene.text.Font?>
 
 
-<AnchorPane fx:id="MainAnchorPane" prefHeight="600.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/17" fx:controller="application.controller.MainController">
+<AnchorPane fx:id="mainAnchorPane" prefHeight="600.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/17" fx:controller="application.controller.MainController">
    <children>
-      <Button fx:id="NewGameBtn" layoutX="261.0" layoutY="287.0" mnemonicParsing="false" onAction="#newGameBtnPressed" text="New Game" />
-      <Button fx:id="LoadGameBtn" layoutX="260.0" layoutY="335.0" mnemonicParsing="false" onAction="#loadBtnPressed" text="Load Game" />
-      <Button fx:id="QuitBtn" layoutX="260.0" layoutY="382.0" mnemonicParsing="false" onAction="#quitBtnPressed" prefHeight="26.0" prefWidth="80.0" text="Quit" />
+      <Button fx:id="newGameBtn" layoutX="261.0" layoutY="287.0" mnemonicParsing="false" onAction="#newGameBtnPressed" text="New Game" />
+      <Button fx:id="loadGameBtn" layoutX="260.0" layoutY="335.0" mnemonicParsing="false" onAction="#loadBtnPressed" text="Load Game" />
+      <Button fx:id="quitBtn" layoutX="260.0" layoutY="382.0" mnemonicParsing="false" onAction="#quitBtnPressed" prefHeight="26.0" prefWidth="80.0" text="Quit" />
       <Label alignment="CENTER" contentDisplay="CENTER" layoutX="127.0" layoutY="101.0" prefHeight="109.0" prefWidth="347.0" text="Yahtzee">
          <font>
             <Font size="96.0" />
