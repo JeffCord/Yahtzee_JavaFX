@@ -6,6 +6,7 @@ import java.util.ResourceBundle;
 import java.io.File;
 import java.io.IOException;
 
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -54,6 +55,7 @@ public class MainController implements Initializable {
     @FXML
     void quitBtnPressed(ActionEvent event) {
     	System.out.println("Quit");
+    	Platform.exit();
     }
 
 	@Override
