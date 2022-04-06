@@ -19,7 +19,7 @@ import javafx.scene.control.ChoiceBox;
 
 public class PlayerSelectController implements Initializable {
 	
-	static final int MAX_NUM_OF_PLAYERS = 6;
+	static final int MAX_NUM_OF_PLAYERS = 6; // just a temp amount
     
 	@FXML
     private AnchorPane mainAnchorPane;
@@ -56,8 +56,8 @@ public class PlayerSelectController implements Initializable {
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		this.mainAnchorPane.setStyle("-fx-background-color: #FF0000");
-		for (int i = 0; i < MAX_NUM_OF_PLAYERS; i++) {
-			this.playerNumChoiceBox.getItems().add(i + 1);
+		for (int i = 1; i <= MAX_NUM_OF_PLAYERS; i++) {
+			this.playerNumChoiceBox.getItems().add(i);
 		}
 		
 	}
