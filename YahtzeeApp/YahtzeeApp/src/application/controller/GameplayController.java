@@ -1,28 +1,34 @@
 package application.controller;
 
-import java.util.ArrayList;
+import java.net.URL;
+import java.util.ResourceBundle;
 
-import application.model.Dice;
 import application.model.Match;
 import application.model.Player;
-import application.model.ScoreCard;
+import javafx.fxml.Initializable;
 
-public class GameplayController {
+public class GameplayController implements Initializable {
 
 	static int numOfPlayers = 1;
 	
-	private Match match;
-	
-	public GameplayController() {
-		// create match and players
-		match = new Match(numOfPlayers);
-		for (int i = 0; i < numOfPlayers; i++) {
-			String playerName = "Player #" + i; // this is TEMPORARY until we finish the player names scene/code
-			Player newPlayer = new Player(playerName); // TODO get custom player name
-			match.addPlayer(newPlayer);
-		}
+	static Match match;
+
+	@Override
+	public void initialize(URL arg0, ResourceBundle arg1) {
+		// TODO Auto-generated method stub
 		
 	}
+	
+//	public GameplayController() {
+//		// create match and players
+//		match = new Match(numOfPlayers);
+//		for (int i = 0; i < numOfPlayers; i++) {
+//			String playerName = "Player #" + i; // this is TEMPORARY until we finish the player names scene/code
+//			Player newPlayer = new Player(playerName); // TODO get custom player name
+//			match.addPlayer(newPlayer);
+//		}
+//		
+//	}
 	
 	
 }

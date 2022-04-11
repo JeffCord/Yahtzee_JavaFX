@@ -5,7 +5,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-
+import application.model.Match;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -57,6 +57,7 @@ public class PlayerSelectController implements Initializable {
     	}
     	System.out.println("Confirmed number of players");
     	GameplayController.numOfPlayers = numDesired; // save the selected number of players
+    	GameplayController.match = new Match(numDesired);
     	try {
 	    	URL url = new File("src/PlayerNames.fxml").toURI().toURL(); // get the fxml file
 			mainAnchorPane = FXMLLoader.load(url); // load the new pane
