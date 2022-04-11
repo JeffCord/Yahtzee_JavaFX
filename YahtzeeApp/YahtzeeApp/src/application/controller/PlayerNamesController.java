@@ -79,12 +79,20 @@ public class PlayerNamesController implements Initializable {
     	// check if name is already taken
     	Player newPlayer = new Player(desiredName);
     	if (!GameplayController.match.addPlayer(newPlayer)) {
+    		this.nameTextField.clear();
     		this.warningLabel.setText("The name " + desiredName + " is already taken. Please try another name.");
     		return;
     	}
     	// add player
     	this.incremementPlayerNumber();
+    	this.nameTextField.clear();
     	this.warningLabel.setText("");
+    	if (this.curPlayerNumber - 1 == GameplayController.numOfPlayers) {
+    		this.confirmBtn.setVisible(false);
+    		this.nameTextField.setVisible(false);
+    		this.promptLabel.setVisible(false);
+    		this.startGameBtn.setVisible(true);
+    	}
     }
     
     public void incremementPlayerNumber() {
