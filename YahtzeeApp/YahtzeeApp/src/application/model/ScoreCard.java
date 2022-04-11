@@ -17,6 +17,7 @@ public class ScoreCard {
 			this.scoreCard.put(a, 0);
 		}
 	}
+	
 	//Getters.
 	public String[] getkeys() {
 		return this.keys;

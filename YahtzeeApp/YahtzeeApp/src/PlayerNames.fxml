@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+
+<AnchorPane fx:id="mainAnchorPane" prefHeight="600.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/17">
+   <children>
+      <TextField fx:id="nameTextField" layoutX="190.0" layoutY="207.0" prefHeight="26.0" prefWidth="221.0" promptText="Enter player name" />
+      <Button fx:id="confirmBtn" layoutX="252.0" layoutY="274.0" mnemonicParsing="false" onMouseClicked="#backButtonPressed" text="Confirm Name" />
+      <Button fx:id="backBtn" layoutX="51.0" layoutY="532.0" mnemonicParsing="false" onMouseClicked="#backBtnPressed" text="Back" />
+      <Label fx:id="promptLabel" layoutX="144.0" layoutY="141.0" text="Player X, please enter your name">
+         <font>
+            <Font size="23.0" />
+         </font>
+      </Label>
+   </children>
+</AnchorPane>

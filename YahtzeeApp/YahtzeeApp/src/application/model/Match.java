@@ -6,6 +6,7 @@ public class Match {
 
 	//Initialization of important variables.
 	int playerCount;
+	int turnNumber; // indicates whose turn it is. [0, playerCount]
 	int turnCounter;
 	Player currentPlayer;
 	ArrayList<Player> players = new ArrayList<Player>();
@@ -14,6 +15,7 @@ public class Match {
 	//Initializes turnCounter to zero.
 	public Match(int n) {
 		this.playerCount = n;
+		this.turnNumber = 0;
 		this.turnCounter = 0;
 	}
 	
@@ -38,15 +40,18 @@ public class Match {
 	//If we've hit the final player we need to set the currentPlayer to our first player, at index 0.
 	public void nextTurn() {
 		try {
-			int next = this.players.indexOf(currentPlayer)+1;
-			if(!(next>this.players.size()-1)) {
-				this.setCurrentPlayer(this.players.get(next));
-				this.turnCounter++;
-			}
-			else {
-				this.setCurrentPlayer(this.players.get(0));
-				this.turnCounter++;
-			}
+//			int next = this.players.indexOf(currentPlayer)+1;
+//			if(!(next>this.players.size()-1)) {
+//				this.setCurrentPlayer(this.players.get(next));
+//				this.turnCounter++;
+//			}
+//			else {
+//				this.setCurrentPlayer(this.players.get(0));
+//				this.turnCounter++;
+//			}
+			this.turnNumber = (this.turnNumber + 1) % this.playerCount; // wraps around back to zero when needed
+			this.setCurrentPlayer(this.players.get(this.turnNumber));
+			this.turnCounter++;
 		}
 		catch(Exception e) {System.out.println("\nError: player index out of bounds for players ArrayList");}
 	}

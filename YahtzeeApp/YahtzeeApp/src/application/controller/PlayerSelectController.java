@@ -19,7 +19,7 @@ import javafx.scene.control.ChoiceBox;
 
 public class PlayerSelectController implements Initializable {
 	
-	static final int MAX_NUM_OF_PLAYERS = 6; // just a temp amount
+	static final int MAX_NUM_OF_PLAYERS = 10; // this is just a temp amount
     
 	@FXML
     private AnchorPane mainAnchorPane;
@@ -35,9 +35,9 @@ public class PlayerSelectController implements Initializable {
     
     @FXML
     void backToMainBtnPressed(ActionEvent event) {
-    	System.out.println("Back to Main pressed");
+//    	System.out.println("Back to Main pressed");
     	try {
-	    	URL url = new File("src/Main.fxml").toURI().toURL(); // get the crossword fxml file
+	    	URL url = new File("src/Main.fxml").toURI().toURL(); // get the fxml file
 			mainAnchorPane = FXMLLoader.load(url); // load the new pane
 	    	Scene scene = new Scene(mainAnchorPane); // set the new scene
 	    	Stage window = (Stage) ((Node)event.getSource()).getScene().getWindow(); // set the new stage
@@ -50,7 +50,23 @@ public class PlayerSelectController implements Initializable {
 
     @FXML
     void confirmBtnPressed(ActionEvent event) {
+    	Integer numDesired = this.playerNumChoiceBox.getValue();
+    	if (numDesired == null) {
+    		System.out.println("No number selected.");
+    		return;
+    	}
     	System.out.println("Confirmed number of players");
+    	GameplayController.numOfPlayers = numDesired; // save the selected number of players
+    	try {
+	    	URL url = new File("src/PlayerNames.fxml").toURI().toURL(); // get the fxml file
+			mainAnchorPane = FXMLLoader.load(url); // load the new pane
+	    	Scene scene = new Scene(mainAnchorPane); // set the new scene
+	    	Stage window = (Stage) ((Node)event.getSource()).getScene().getWindow(); // set the new stage
+	    	window.setScene(scene); // place new stage on new stage
+	    	window.show(); // display the new stage
+    	} catch (IOException e) {
+    		System.out.println("ERROR: could not find PlayerNames.fxml file");
+    	}
     }
     
 	@Override

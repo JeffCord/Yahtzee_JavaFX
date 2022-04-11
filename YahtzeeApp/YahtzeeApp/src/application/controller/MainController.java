@@ -40,7 +40,7 @@ public class MainController implements Initializable {
     void newGameBtnPressed(ActionEvent event) {
     	System.out.println("New");
     	try {
-	    	URL url = new File("src/PlayerSelect.fxml").toURI().toURL(); // get the crossword fxml file
+	    	URL url = new File("src/PlayerSelect.fxml").toURI().toURL(); // get the fxml file
 			mainAnchorPane = FXMLLoader.load(url); // load the new pane
 	    	Scene scene = new Scene(mainAnchorPane); // set the new scene
 	    	Stage window = (Stage) ((Node)event.getSource()).getScene().getWindow(); // set the new stage

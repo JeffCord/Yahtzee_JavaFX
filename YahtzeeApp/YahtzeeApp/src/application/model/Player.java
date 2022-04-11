@@ -9,6 +9,7 @@ public class Player {
 	ArrayList<Dice> diceCup = new ArrayList<Dice>();
 	ArrayList<Dice> keepers = new ArrayList<Dice>();
 	ScoreCard card = new ScoreCard();
+	static final int TOTAL_NUM_OF_DICE = 5;
 
 	//Player constructor. Takes a string as the player's name and creates 5 dice for their diceCup.
 	public Player(String name) {
@@ -25,7 +26,7 @@ public class Player {
 	//If dice b, at passed index d, is contained within diceCup remove and add dice to keepers ArrayList.
 	public void keepDice(int d) {
 		try {
-			Dice b = this.getDice(d);
+			Dice b = this.getDie(d);
 			if(this.diceCup.contains(b)) {
 				this.diceCup.remove(b);
 				this.keepers.add(b);
@@ -37,6 +38,8 @@ public class Player {
 			}
 	}
 	
+	// TODO add a function that can deselect "kept" dice before player rolls
+	
 	//rollCup function. For each dice in diceCup, call the rollDice method for a new value.
 	public void rollCup() {
 		for(Dice dice : this.diceCup) {
@@ -45,10 +48,35 @@ public class Player {
 	}
 	
 	//getDice function. Returns the dice object at passed index a within diceCup ArrayList.
-	public Dice getDice(int a) {
+	public Dice getDie(int a) {
 		return this.diceCup.get(a);
 	}
 	
+	
+	public ArrayList<Dice> getDiceCup() {
+		return diceCup;
+	}
+
+	public void setDiceCup(ArrayList<Dice> diceCup) {
+		this.diceCup = diceCup;
+	}
+
+	public ArrayList<Dice> getKeepers() {
+		return keepers;
+	}
+
+	public void setKeepers(ArrayList<Dice> keepers) {
+		this.keepers = keepers;
+	}
+
+	public ScoreCard getCard() {
+		return card;
+	}
+
+	public void setCard(ScoreCard card) {
+		this.card = card;
+	}
+
 	//getScoreCard function. Returns card object.
 	public ScoreCard getScoreCard()	{
 		return this.card;
@@ -57,6 +85,10 @@ public class Player {
 	//getPlayerName function. Returns this player's player name.
 	public String getPlayerName() {
 		return this.playerName;
+	}
+	
+	public void setPlayerName(String newPlayerName) {
+		this.playerName = newPlayerName;
 	}
 	
 	//toString method. Prints the player's name, diceCup contents, and keepers contents.
