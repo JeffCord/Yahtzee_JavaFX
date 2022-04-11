@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import application.model.Player;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -33,6 +34,9 @@ public class PlayerNamesController implements Initializable {
 
     @FXML
     private Label promptLabel;
+    
+    @FXML
+    private Label warningLabel;
 
     private int curPlayerNumber = 1;
     
@@ -69,9 +73,18 @@ public class PlayerNamesController implements Initializable {
 
     @FXML
     void confirmNameBtnPressed(MouseEvent event) {
-    	// if name is valid
-    	
+    	String desiredName = this.nameTextField.getText().trim();
+    	// check if name input is empty
+    	if (desiredName.length() == 0) return;
+    	// check if name is already taken
+    	Player newPlayer = new Player(desiredName);
+    	if (!GameplayController.match.addPlayer(newPlayer)) {
+    		this.warningLabel.setText("The name " + desiredName + " is already taken. Please try another name.");
+    		return;
+    	}
+    	// add player
     	this.incremementPlayerNumber();
+    	this.warningLabel.setText("");
     }
     
     public void incremementPlayerNumber() {

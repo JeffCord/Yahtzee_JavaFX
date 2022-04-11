@@ -6,7 +6,7 @@ public class Match {
 
 	//Initialization of important variables.
 	int playerCount;
-	int turnNumber; // indicates whose turn it is. [0, playerCount]
+	int turnNumber; // indicates whose turn it is. [0, playerCount - 1]
 	int turnCounter;
 	Player currentPlayer;
 	ArrayList<Player> players = new ArrayList<Player>();
@@ -21,18 +21,18 @@ public class Match {
 	
 	//addPlayer function. Adds a player to the players ArrayList if they aren't already added.
 	//If players ArrayList is empty, also set new player as currentPlayer.
-	public void addPlayer(Player p) {
-		try {
-			if(this.players.size()==0) {
-				this.players.add(p);
-				this.setCurrentPlayer(p);
-			}
-			if(!this.players.contains(p)) {
-				this.players.add(p);
-			}
+	public boolean addPlayer(Player p) {
+		if(this.players.size()==0) {
+			this.players.add(p);
+			this.setCurrentPlayer(p);
+			return true;
 		}
-		//Catch block for player already present in match Array List.
-		catch(Exception e) {System.out.println("Player already added to match.");}
+		if(!this.players.contains(p)) {
+			this.players.add(p);
+			return true;
+		}
+		System.out.println("Player already added to match.");
+		return false;
 	}
 	
 	//nextTurn function. Set currentPlayer to the next in players ArrayList and increment turnCounter.
