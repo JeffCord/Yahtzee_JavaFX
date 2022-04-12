@@ -80,18 +80,29 @@ public class PlayerNamesController implements Initializable {
     	Player newPlayer = new Player(desiredName);
     	if (!GameplayController.match.addPlayer(newPlayer)) {
     		this.nameTextField.clear();
+    		this.warningLabel.setVisible(true);
     		this.warningLabel.setText("The name " + desiredName + " is already taken. Please try another name.");
     		return;
     	}
+    	System.out.println("Successfully made player with name " + desiredName);
+    	
+    	for (int i = 0; i < GameplayController.match.getPlayers().size(); i++) {
+    		System.out.print(GameplayController.match.getPlayers().get(i).getPlayerName() + " ");
+    	}
+    	System.out.println();
+    	
     	// add player
-    	this.incremementPlayerNumber();
     	this.nameTextField.clear();
-    	this.warningLabel.setText("");
-    	if (this.curPlayerNumber - 1 == GameplayController.numOfPlayers) {
+    	this.warningLabel.setVisible(false);
+    	// System.out.println("DATA: " + this.curPlayerNumber + " " + GameplayController.numOfPlayers);
+    	if (this.curPlayerNumber == GameplayController.numOfPlayers) {
     		this.confirmBtn.setVisible(false);
     		this.nameTextField.setVisible(false);
     		this.promptLabel.setVisible(false);
     		this.startGameBtn.setVisible(true);
+    	} else {
+    		// increment player number if not done adding player names
+        	this.incremementPlayerNumber();
     	}
     }
     
@@ -109,6 +120,7 @@ public class PlayerNamesController implements Initializable {
 		this.mainAnchorPane.setStyle("-fx-background-color: #FF0000");
 		setPromptLabelText();
 		this.startGameBtn.setVisible(false);
+		this.warningLabel.setVisible(false);
 	}
 	
 }

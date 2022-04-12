@@ -27,14 +27,44 @@ public class Match {
 			this.setCurrentPlayer(p);
 			return true;
 		}
-		if(!this.players.contains(p)) {
-			this.players.add(p);
-			return true;
+//		if(!this.players.contains(p)) { // NOTE: This if statement was buggy because it was comparing a reference, not the name String
+//			this.players.add(p);
+//			return true;
+//		}
+		for (int i = 0; i < this.players.size(); i++) {
+			if (p.getPlayerName().equals(this.players.get(i).getPlayerName())) {
+				System.out.println("Player " + p.getPlayerName() + " already added to match.");
+				return false;
+			}
 		}
-		System.out.println("Player already added to match.");
-		return false;
+		this.players.add(p);
+		return true;
 	}
 	
+	public int getTurnNumber() {
+		return turnNumber;
+	}
+
+	public void setTurnNumber(int turnNumber) {
+		this.turnNumber = turnNumber;
+	}
+
+	public int getTurnCounter() {
+		return turnCounter;
+	}
+
+	public void setTurnCounter(int turnCounter) {
+		this.turnCounter = turnCounter;
+	}
+
+	public ArrayList<Player> getPlayers() {
+		return players;
+	}
+
+	public void setPlayers(ArrayList<Player> players) {
+		this.players = players;
+	}
+
 	//nextTurn function. Set currentPlayer to the next in players ArrayList and increment turnCounter.
 	//Check that the next player's index isn't out of bounds. If it is out of bounds, we've hit the final player.
 	//If we've hit the final player we need to set the currentPlayer to our first player, at index 0.

@@ -55,7 +55,7 @@ public class PlayerSelectController implements Initializable {
     		System.out.println("No number selected.");
     		return;
     	}
-    	System.out.println("Confirmed number of players");
+    	System.out.println("Confirmed number of players: " + numDesired);
     	GameplayController.numOfPlayers = numDesired; // save the selected number of players
     	GameplayController.match = new Match(numDesired);
     	try {
