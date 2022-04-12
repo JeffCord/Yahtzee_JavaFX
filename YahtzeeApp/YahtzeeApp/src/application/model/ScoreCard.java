@@ -10,6 +10,7 @@ public class ScoreCard {
 			,"UpperTotal","3-of-a-kind","4-of-a-kind","FullHouse","LowStraight","HighStraight"
 			,"YAHTZEE","Chance","YahtzeeBonus","LowerTotal","GrandTotal"};
 	Hashtable<String, Integer> scoreCard = new Hashtable<String,Integer>();
+	boolean isComplete = false;
 	
 	//ScoreCard constructor. Assigns player name and initializes scoreCard HashMap.
 	public ScoreCard() {

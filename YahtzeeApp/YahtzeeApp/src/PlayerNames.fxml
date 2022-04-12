@@ -17,6 +17,6 @@
          </font>
       </Label>
       <Button fx:id="startGameBtn" layoutX="261.0" layoutY="361.0" mnemonicParsing="false" onMouseClicked="#startGameBtnPressed" text="Start Game" />
-      <Label fx:id="warningLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="25.0" layoutY="244.0" prefHeight="17.0" prefWidth="552.0" />
+      <Label fx:id="warningLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="264.0" layoutY="244.0" text="warningLabel" />
    </children>
 </AnchorPane>
