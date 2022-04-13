@@ -26,27 +26,27 @@
       </Text>
       <Button fx:id="keepBttn" layoutX="111.0" layoutY="367.0" mnemonicParsing="false" onAction="#KeepBttnPressed" prefHeight="25.0" prefWidth="163.0" text="Keep" />
       <Button fx:id="rerollBttn" layoutX="326.0" layoutY="367.0" mnemonicParsing="false" onAction="#RerollBttnPressed" prefHeight="25.0" prefWidth="163.0" text="Reroll" />
-      <ImageView fx:id="dice1Image" fitHeight="63.0" fitWidth="70.0" layoutX="59.0" layoutY="182.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="diceImageView1" fitHeight="63.0" fitWidth="70.0" layoutX="59.0" layoutY="182.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../../../../../../Pictures/YatzheeGroupProject/dice-1.png" />
          </image>
       </ImageView>
-      <ImageView fx:id="diceImage2" fitHeight="63.0" fitWidth="70.0" layoutX="161.0" layoutY="182.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="diceImageView2" fitHeight="63.0" fitWidth="70.0" layoutX="161.0" layoutY="182.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../../../../../../Pictures/YatzheeGroupProject/dice-2.png" />
          </image>
       </ImageView>
-      <ImageView fx:id="diceImage3" fitHeight="63.0" fitWidth="70.0" layoutX="269.0" layoutY="182.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="diceImageView3" fitHeight="63.0" fitWidth="70.0" layoutX="269.0" layoutY="182.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../../../../../../Pictures/YatzheeGroupProject/dice-3.png" />
          </image>
       </ImageView>
-      <ImageView fx:id="diceImage5" fitHeight="63.0" fitWidth="70.0" layoutX="465.0" layoutY="182.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="diceImageView5" fitHeight="63.0" fitWidth="70.0" layoutX="465.0" layoutY="182.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../../../../../../Pictures/YatzheeGroupProject/dice-5.png" />
          </image>
       </ImageView>
-      <ImageView fx:id="diceImage4" fitHeight="63.0" fitWidth="70.0" layoutX="376.0" layoutY="182.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="diceImageView4" fitHeight="63.0" fitWidth="70.0" layoutX="376.0" layoutY="182.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../../../../../../Pictures/YatzheeGroupProject/dice-4.png" />
          </image>
@@ -79,5 +79,6 @@
             <Font size="13.0" />
          </font>
       </Text>
+      <Button fx:id="endTurnBttn" layoutX="439.0" layoutY="405.0" mnemonicParsing="false" onAction="#endTurnBttnPressed" text="End Turn" />
    </children>
 </AnchorPane>

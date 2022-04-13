@@ -15,6 +15,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.shape.Rectangle;
@@ -41,19 +42,19 @@ public class GameplayController implements Initializable {
     private CheckBox dice1CheckBox;
 
     @FXML
-    private ImageView diceImage1;
+    private ImageView diceImageView1;
 
     @FXML
     private CheckBox dice2CheckBox;
 
     @FXML
-    private ImageView diceImage2;
+    private ImageView diceImageView2;
 
     @FXML
     private CheckBox dice3CheckBox;
 
     @FXML
-    private ImageView diceImage3;
+    private ImageView diceImageView3;
 
     @FXML
     private CheckBox dice4CheckBox;
@@ -62,10 +63,10 @@ public class GameplayController implements Initializable {
     private CheckBox dice5CheckBox;
 
     @FXML
-    private ImageView diceImage4;
+    private ImageView diceImageView4;
 
     @FXML
-    private ImageView diceImage5;
+    private ImageView diceImageView5;
 
     @FXML
     private Text diceKeepText;
@@ -133,6 +134,22 @@ public class GameplayController implements Initializable {
 	private int [] diceVals = new int[TOTAL_NUM_OF_DICE];
 	
 	private GameplayModel gModel;
+	
+//	private Image diceImage1;
+//	
+//	private Image diceImage2;
+//	
+//	private Image diceImage3;
+//	
+//	private Image diceImage4;
+//	
+//	private Image diceImage5;
+//	
+//	private Image diceImage6;
+//	
+//	private Image [] diceImages = new Image[6];
+//	
+//	private ImageView [] diceImageViews = new ImageView[5];
 
 
     @FXML
@@ -152,16 +169,34 @@ public class GameplayController implements Initializable {
     void RollBttnPressed(ActionEvent event) {
     	Player p = match.getCurrentPlayer();
     	ArrayList<Dice> diceCup = p.getDiceCup();
+    	String result = "";
+    	int idx = 0;
     	for (int i = 0; i < diceCup.size(); i++) {
-    		diceCup.get(i).rollDice();
+    		// roll the current die in cup
+    		Dice curDie = diceCup.get(i);
+    		curDie.rollDice();
+    		int curDieVal = curDie.getValue();
     		// TODO update image views
+    		
+//    		this.diceImageViews[idx].setImage(diceImages[curDieVal - 1]);
+    		idx++;
+    		result += diceCup.get(i).getValue() + " ";
     	}
     	
     	// TODO update image views for dice that were kept
     	ArrayList<Dice> keepers = p.getKeepers();
     	for (int i = 0; i < keepers.size(); i++) {
-    		keepers.get(i).getValue();
+    		System.out.println("Keepers " + i);
+    		Dice curDie = keepers.get(i);
+    		int curDieVal = curDie.getValue();
+    		
+    		// TODO update image views
+
+    		idx++;
+    		
+    		result += diceCup.get(i).getValue() + " ";
     	}
+    	System.out.println("DICE: " + result);
     }
 
     @FXML
@@ -179,6 +214,11 @@ public class GameplayController implements Initializable {
 
     }
 
+    @FXML
+    void endTurnBttnPressed(ActionEvent event) {
+
+    }
+    
     @FXML
     void fivesBttnPressed(ActionEvent event) {
 
@@ -400,11 +440,35 @@ public class GameplayController implements Initializable {
 	
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
+//		// set up array for dice images
+//		diceImage1 = new Image("src/dice-1.png");
+//		diceImage2 = new Image("src/dice-2.png");
+//		diceImage3 = new Image("src/dice-3.png");
+//		diceImage4 = new Image("src/dice-4.png");
+//		diceImage5 = new Image("src/dice-5.png");
+//		diceImage6 = new Image("src/dice-6.png");
+//		this.diceImages[0] = diceImage1;
+//		this.diceImages[1] = diceImage2;
+//		this.diceImages[2] = diceImage3;
+//		this.diceImages[3] = diceImage4;
+//		this.diceImages[4] = diceImage5;
+//		this.diceImages[5] = diceImage6;
+//		
+//		// set up array for dice image views
+//		this.diceImageViews[0] = diceImageView1;
+//		this.diceImageViews[1] = diceImageView2;
+//		this.diceImageViews[2] = diceImageView3;
+//		this.diceImageViews[3] = diceImageView4;
+//		this.diceImageViews[4] = diceImageView5;
+		
+		this.gamePlayPanel.setStyle("-fx-background-color: #FF0000");
 		this.gModel = new GameplayModel();
 		
 		// set up text boxes
 		this.currentPlayerName.setText(match.getCurrentPlayer().getPlayerName());
+		this.currentPlayerScore.setText("Overall score: ");
 		this.comboPointsText.setVisible(false);
+		this.diceKeepText.setVisible(false);
 		
 		// disable all lower buttons except ROLL button
 		this.keepBttn.setDisable(true);
