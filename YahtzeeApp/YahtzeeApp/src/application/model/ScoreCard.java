@@ -32,6 +32,17 @@ public class ScoreCard {
 		return this.scoreCard;
 	}
 	
+	//returns total value/score of scoreCard (used to find a player's final score)
+	public int getTotalScore() {
+		int total = 0;
+		
+		for(String k : this.keys) {
+			total += scoreCard.get(k);
+		}
+		
+		return total;
+	}
+	
 	//Setters.
 	public void setPlayerName(String n) {
 		this.playerName = n;

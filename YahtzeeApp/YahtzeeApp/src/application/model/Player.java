@@ -87,6 +87,13 @@ public class Player {
 		return this.playerName;
 	}
 	
+	//getPlayerFinalScore function. Returns the player's final score.
+	public int getPlayerFinalScore() {
+		int totalScore = card.getTotalScore();
+		
+		return totalScore;
+	}
+	
 	public void setPlayerName(String newPlayerName) {
 		this.playerName = newPlayerName;
 	}
@@ -96,5 +103,4 @@ public class Player {
 	public String toString() {
 		return "\nPlayer Name: "+this.playerName+"\n\tDiceCup: "+this.diceCup.toString()+"\n\tKeepers: "+this.keepers.toString();
 	}
-	
 }
