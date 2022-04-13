@@ -1,14 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.image.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.shape.*?>
-<?import javafx.scene.text.*?>
-<?import java.lang.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
 
-<AnchorPane fx:id="gamePlayPanel" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controller.GameplayController">
+<AnchorPane fx:id="gamePlayPanel" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controller.GameplayController">
    <children>
       <Text fx:id="currentPlayerName" layoutX="14.0" layoutY="48.0" stroke="BLACK" strokeType="OUTSIDE" strokeWidth="0.0" text="CurrentPlayerName" textAlignment="CENTER" wrappingWidth="153.13671875">
          <font>
@@ -30,12 +31,12 @@
             <Image url="@../../../../../../Pictures/YatzheeGroupProject/dice-1.png" />
          </image>
       </ImageView>
-      <ImageView fx:id="dice2Image" fitHeight="63.0" fitWidth="70.0" layoutX="161.0" layoutY="182.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="diceImage2" fitHeight="63.0" fitWidth="70.0" layoutX="161.0" layoutY="182.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../../../../../../Pictures/YatzheeGroupProject/dice-2.png" />
          </image>
       </ImageView>
-      <ImageView fx:id="dice3Image" fitHeight="63.0" fitWidth="70.0" layoutX="269.0" layoutY="182.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="diceImage3" fitHeight="63.0" fitWidth="70.0" layoutX="269.0" layoutY="182.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../../../../../../Pictures/YatzheeGroupProject/dice-3.png" />
          </image>

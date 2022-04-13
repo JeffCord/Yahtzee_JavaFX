@@ -7,6 +7,7 @@ import java.util.HashMap;
 import java.util.ResourceBundle;
 
 import application.model.Dice;
+import application.model.GameplayModel;
 import application.model.Match;
 import application.model.Player;
 import javafx.event.ActionEvent;
@@ -40,19 +41,19 @@ public class GameplayController implements Initializable {
     private CheckBox dice1CheckBox;
 
     @FXML
-    private ImageView dice1Image;
+    private ImageView diceImage1;
 
     @FXML
     private CheckBox dice2CheckBox;
 
     @FXML
-    private ImageView dice2Image;
+    private ImageView diceImage2;
 
     @FXML
     private CheckBox dice3CheckBox;
 
     @FXML
-    private ImageView dice3Image;
+    private ImageView diceImage3;
 
     @FXML
     private CheckBox dice4CheckBox;
@@ -71,6 +72,9 @@ public class GameplayController implements Initializable {
 
     @FXML
     private Rectangle dicePanel;
+    
+    @FXML
+    private Button endTurnBttn;
 
     @FXML
     private Button fivesBttn;
@@ -127,6 +131,8 @@ public class GameplayController implements Initializable {
 	public static Match match;
 	
 	private int [] diceVals = new int[TOTAL_NUM_OF_DICE];
+	
+	private GameplayModel gModel;
 
 
     @FXML
@@ -140,8 +146,22 @@ public class GameplayController implements Initializable {
     }
 
     @FXML
+    /*
+     * roll each die in the current player's dice cup
+     */
     void RollBttnPressed(ActionEvent event) {
-
+    	Player p = match.getCurrentPlayer();
+    	ArrayList<Dice> diceCup = p.getDiceCup();
+    	for (int i = 0; i < diceCup.size(); i++) {
+    		diceCup.get(i).rollDice();
+    		// TODO update image views
+    	}
+    	
+    	// TODO update image views for dice that were kept
+    	ArrayList<Dice> keepers = p.getKeepers();
+    	for (int i = 0; i < keepers.size(); i++) {
+    		keepers.get(i).getValue();
+    	}
     }
 
     @FXML
@@ -380,6 +400,29 @@ public class GameplayController implements Initializable {
 	
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
-		// TODO Auto-generated method stub
+		this.gModel = new GameplayModel();
+		
+		// set up text boxes
+		this.currentPlayerName.setText(match.getCurrentPlayer().getPlayerName());
+		this.comboPointsText.setVisible(false);
+		
+		// disable all lower buttons except ROLL button
+		this.keepBttn.setDisable(true);
+		this.rerollBttn.setDisable(true);
+		this.endTurnBttn.setDisable(true);
+		this.chanceBttn.setDisable(true);
+		this.threeBttn.setDisable(true);
+		this.fourBttn.setDisable(true);
+		this.fullBttn.setDisable(true);
+		this.smallBttn.setDisable(true);
+		this.yahtzeeBttn.setDisable(true);
+		this.largeBttn.setDisable(true);
+		this.acesBttn.setDisable(true);
+		this.twosBttn.setDisable(true);
+		this.threesBttn.setDisable(true);
+		this.foursBttn.setDisable(true);
+		this.fivesBttn.setDisable(true);
+		this.sixesBttn.setDisable(true);
+		
 	}
 }
