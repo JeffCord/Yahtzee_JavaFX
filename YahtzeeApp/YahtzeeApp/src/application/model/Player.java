@@ -5,11 +5,11 @@ import java.util.ArrayList;
 public class Player {
 	
 	//Initialization of important variables.
-	String playerName;
-	ArrayList<Dice> diceCup = new ArrayList<Dice>();
-	ArrayList<Dice> keepers = new ArrayList<Dice>();
-	ScoreCard card = new ScoreCard();
-	static final int TOTAL_NUM_OF_DICE = 5;
+	private String playerName;
+	private ArrayList<Dice> diceCup = new ArrayList<Dice>();
+	private ArrayList<Dice> keepers = new ArrayList<Dice>();
+	private ScoreCard card = new ScoreCard();
+	public static final int TOTAL_NUM_OF_DICE = 5;
 
 	//Player constructor. Takes a string as the player's name and creates 5 dice for their diceCup.
 	public Player(String name) {

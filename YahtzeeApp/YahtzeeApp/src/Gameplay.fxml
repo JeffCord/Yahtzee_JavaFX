@@ -1,8 +1,84 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
 
-<AnchorPane xmlns:fx="http://javafx.com/fxml/1">
-	<!-- TODO Add Nodes -->
+<AnchorPane fx:id="gamePlayPanel" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controller.GameplayController">
+   <children>
+      <Text fx:id="currentPlayerName" layoutX="14.0" layoutY="48.0" stroke="BLACK" strokeType="OUTSIDE" strokeWidth="0.0" text="CurrentPlayerName" textAlignment="CENTER" wrappingWidth="153.13671875">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Text>
+      <Rectangle fx:id="dicePanel" arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="250.0" layoutX="50.0" layoutY="88.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.5" width="500.0" />
+      <Button fx:id="rollBttn" layoutX="193.0" layoutY="405.0" mnemonicParsing="false" onAction="#RollBttnPressed" prefHeight="25.0" prefWidth="215.0" text="ROLL" AnchorPane.bottomAnchor="170.0" />
+      <Button fx:id="saveExitBttn" layoutX="407.0" layoutY="30.0" mnemonicParsing="false" onAction="#SaveExitBttnPressed" prefHeight="25.0" prefWidth="179.0" text="Save and Exit" />
+      <Text fx:id="currentPlayerScore" layoutX="50.0" layoutY="105.0" stroke="BLACK" strokeType="OUTSIDE" strokeWidth="0.0" text="CurrentPlayerScore" textAlignment="CENTER" wrappingWidth="153.13671875">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Text>
+      <Button fx:id="keepBttn" layoutX="111.0" layoutY="367.0" mnemonicParsing="false" onAction="#KeepBttnPressed" prefHeight="25.0" prefWidth="163.0" text="Keep" />
+      <Button fx:id="rerollBttn" layoutX="326.0" layoutY="367.0" mnemonicParsing="false" onAction="#RerollBttnPressed" prefHeight="25.0" prefWidth="163.0" text="Reroll" />
+      <ImageView fx:id="diceImageView1" fitHeight="63.0" fitWidth="70.0" layoutX="59.0" layoutY="182.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../../../../Pictures/YatzheeGroupProject/dice-1.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="diceImageView2" fitHeight="63.0" fitWidth="70.0" layoutX="161.0" layoutY="182.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../../../../Pictures/YatzheeGroupProject/dice-2.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="diceImageView3" fitHeight="63.0" fitWidth="70.0" layoutX="269.0" layoutY="182.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../../../../Pictures/YatzheeGroupProject/dice-3.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="diceImageView5" fitHeight="63.0" fitWidth="70.0" layoutX="465.0" layoutY="182.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../../../../Pictures/YatzheeGroupProject/dice-5.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="diceImageView4" fitHeight="63.0" fitWidth="70.0" layoutX="376.0" layoutY="182.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../../../../Pictures/YatzheeGroupProject/dice-4.png" />
+         </image>
+      </ImageView>
+      <CheckBox fx:id="dice1CheckBox" layoutX="80.0" layoutY="265.0" mnemonicParsing="false" />
+      <CheckBox fx:id="dice2CheckBox" layoutX="182.0" layoutY="265.0" mnemonicParsing="false" />
+      <CheckBox fx:id="dice3CheckBox" layoutX="290.0" layoutY="265.0" mnemonicParsing="false" />
+      <CheckBox fx:id="dice4CheckBox" layoutX="397.0" layoutY="265.0" mnemonicParsing="false" />
+      <CheckBox fx:id="dice5CheckBox" layoutX="486.0" layoutY="265.0" mnemonicParsing="false" />
+      <Text fx:id="diceKeepText" layoutX="225.0" layoutY="146.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Choose Dice To Keep">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Text>
+      <Button fx:id="threesBttn" layoutX="225.0" layoutY="554.0" mnemonicParsing="false" onAction="#threesBttnPressed" text="Threes" />
+      <Button fx:id="twosBttn" layoutX="136.0" layoutY="554.0" mnemonicParsing="false" onAction="#twosBttnPressed" prefHeight="25.0" prefWidth="51.0" text="Twos" />
+      <Button fx:id="acesBttn" layoutX="47.0" layoutY="554.0" mnemonicParsing="false" onAction="#acesBttnPressed" prefHeight="25.0" prefWidth="51.0" text="Aces" />
+      <Button fx:id="foursBttn" layoutX="324.0" layoutY="554.0" mnemonicParsing="false" onAction="#foursBttnPressed" prefHeight="25.0" prefWidth="51.0" text="Fours" />
+      <Button fx:id="fivesBttn" layoutX="415.0" layoutY="554.0" mnemonicParsing="false" onAction="#fivesBttnPressed" prefHeight="25.0" prefWidth="51.0" text="Fives" />
+      <Button fx:id="sixesBttn" layoutX="503.0" layoutY="554.0" mnemonicParsing="false" onAction="#sixesBttnPressed" prefHeight="25.0" prefWidth="51.0" text="Sixes" />
+      <Button fx:id="smallBttn" layoutX="117.0" layoutY="499.0" mnemonicParsing="false" onAction="#smallBttnPressed" prefHeight="25.0" prefWidth="88.0" text="Sm. Straight" />
+      <Button fx:id="chanceBttn" layoutX="47.0" layoutY="448.0" mnemonicParsing="false" onAction="#chanceBttnPressed" prefHeight="25.0" prefWidth="88.0" text="Chance" />
+      <Button fx:id="fourBttn" layoutX="332.0" layoutY="448.0" mnemonicParsing="false" onAction="#fourBttnPressed" prefHeight="25.0" prefWidth="88.0" text="4 Of A Kind" />
+      <Button fx:id="fullBttn" layoutX="463.0" layoutY="448.0" mnemonicParsing="false" onAction="#fullBttnPressed" prefHeight="25.0" prefWidth="88.0" text="Full House" />
+      <Button fx:id="threeBttn" layoutX="180.0" layoutY="448.0" mnemonicParsing="false" onAction="#threeBttnPressed" prefHeight="25.0" prefWidth="88.0" text="3 Of A Kind" />
+      <Button fx:id="largeBttn" layoutX="396.0" layoutY="499.0" mnemonicParsing="false" onAction="#largeBttnPressed" prefHeight="25.0" prefWidth="88.0" text="Lg. Straight" />
+      <Button fx:id="yahtzeeBttn" layoutX="216.0" layoutY="483.0" mnemonicParsing="false" onAction="#yahtzeeBttnPressed" prefHeight="57.0" prefWidth="169.0" text="YAHTZEE" />
+      <Text fx:id="comboPointsText" layoutX="225.0" layoutY="314.0" strokeType="OUTSIDE" strokeWidth="0.0" text="NameOfCombo PlayerName Scored X Pts!" textAlignment="CENTER" wrappingWidth="150.046875">
+         <font>
+            <Font size="13.0" />
+         </font>
+      </Text>
+      <Button fx:id="endTurnBttn" layoutX="439.0" layoutY="405.0" mnemonicParsing="false" onAction="#endTurnBttnPressed" text="End Turn" />
+   </children>
 </AnchorPane>
-

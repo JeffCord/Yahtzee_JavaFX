@@ -8,6 +8,7 @@ public class Match {
 	int playerCount;
 	int turnNumber; // indicates whose turn it is. [0, playerCount - 1]
 	int turnCounter;
+	int roundNumber;
 	Player currentPlayer;
 	ArrayList<Player> players = new ArrayList<Player>();
 	
@@ -17,8 +18,9 @@ public class Match {
 		this.playerCount = n;
 		this.turnNumber = 0;
 		this.turnCounter = 0;
+		this.roundNumber = 0;
 	}
-	
+
 	//addPlayer function. Adds a player to the players ArrayList if they aren't already added.
 	//If players ArrayList is empty, also set new player as currentPlayer.
 	public boolean addPlayer(Player p) {
@@ -39,6 +41,14 @@ public class Match {
 		}
 		this.players.add(p);
 		return true;
+	}
+	
+	public int getRoundNumber() {
+		return roundNumber;
+	}
+
+	public void setRoundNumber(int roundNumber) {
+		this.roundNumber = roundNumber;
 	}
 	
 	public int getTurnNumber() {
