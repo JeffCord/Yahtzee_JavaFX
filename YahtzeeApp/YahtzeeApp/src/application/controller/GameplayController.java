@@ -9,18 +9,211 @@ import java.util.ResourceBundle;
 import application.model.Dice;
 import application.model.Match;
 import application.model.Player;
+import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.shape.Rectangle;
+import javafx.scene.text.Text;
 
 public class GameplayController implements Initializable {
 
-	public static int numOfPlayers = 1;
-	
-	final int TOTAL_NUM_OF_DICE = 5;
+    @FXML
+    private Button acesBttn;
+
+    @FXML
+    private Button chanceBttn;
+
+    @FXML
+    private Text comboPointsText;
+
+    @FXML
+    private Text currentPlayerName;
+
+    @FXML
+    private Text currentPlayerScore;
+
+    @FXML
+    private CheckBox dice1CheckBox;
+
+    @FXML
+    private ImageView dice1Image;
+
+    @FXML
+    private CheckBox dice2CheckBox;
+
+    @FXML
+    private ImageView dice2Image;
+
+    @FXML
+    private CheckBox dice3CheckBox;
+
+    @FXML
+    private ImageView dice3Image;
+
+    @FXML
+    private CheckBox dice4CheckBox;
+
+    @FXML
+    private CheckBox dice5CheckBox;
+
+    @FXML
+    private ImageView diceImage4;
+
+    @FXML
+    private ImageView diceImage5;
+
+    @FXML
+    private Text diceKeepText;
+
+    @FXML
+    private Rectangle dicePanel;
+
+    @FXML
+    private Button fivesBttn;
+
+    @FXML
+    private Button fourBttn;
+
+    @FXML
+    private Button foursBttn;
+
+    @FXML
+    private Button fullBttn;
+
+    @FXML
+    private AnchorPane gamePlayPanel;
+
+    @FXML
+    private Button keepBttn;
+
+    @FXML
+    private Button largeBttn;
+
+    @FXML
+    private Button rerollBttn;
+
+    @FXML
+    private Button rollBttn;
+
+    @FXML
+    private Button saveExitBttn;
+
+    @FXML
+    private Button sixesBttn;
+
+    @FXML
+    private Button smallBttn;
+
+    @FXML
+    private Button threeBttn;
+
+    @FXML
+    private Button threesBttn;
+
+    @FXML
+    private Button twosBttn;
+
+    @FXML
+    private Button yahtzeeBttn;
+    
+    final int TOTAL_NUM_OF_DICE = 5;
+    
+    public static int numOfPlayers = 1;
 	
 	public static Match match;
 	
 	private int [] diceVals = new int[TOTAL_NUM_OF_DICE];
 
+
+    @FXML
+    void KeepBttnPressed(ActionEvent event) {
+
+    }
+
+    @FXML
+    void RerollBttnPressed(ActionEvent event) {
+
+    }
+
+    @FXML
+    void RollBttnPressed(ActionEvent event) {
+
+    }
+
+    @FXML
+    void SaveExitBttnPressed(ActionEvent event) {
+
+    }
+
+    @FXML
+    void acesBttnPressed(ActionEvent event) {
+
+    }
+
+    @FXML
+    void chanceBttnPressed(ActionEvent event) {
+
+    }
+
+    @FXML
+    void fivesBttnPressed(ActionEvent event) {
+
+    }
+
+    @FXML
+    void fourBttnPressed(ActionEvent event) {
+
+    }
+
+    @FXML
+    void foursBttnPressed(ActionEvent event) {
+
+    }
+
+    @FXML
+    void fullBttnPressed(ActionEvent event) {
+
+    }
+
+    @FXML
+    void largeBttnPressed(ActionEvent event) {
+
+    }
+
+    @FXML
+    void sixesBttnPressed(ActionEvent event) {
+
+    }
+
+    @FXML
+    void smallBttnPressed(ActionEvent event) {
+
+    }
+
+    @FXML
+    void threeBttnPressed(ActionEvent event) {
+
+    }
+
+    @FXML
+    void threesBttnPressed(ActionEvent event) {
+
+    }
+
+    @FXML
+    void twosBttnPressed(ActionEvent event) {
+
+    }
+
+    @FXML
+    void yahtzeeBttnPressed(ActionEvent event) {
+
+    }
+	
 	public int[] getDiceVals() {
 		return diceVals;
 	}
