@@ -42,19 +42,13 @@ public class GameplayController implements Initializable {
     private CheckBox dice1CheckBox;
 
     @FXML
-    private ImageView diceImageView1;
+    private ImageView dice1Image;
 
     @FXML
     private CheckBox dice2CheckBox;
 
     @FXML
-    private ImageView diceImageView2;
-
-    @FXML
     private CheckBox dice3CheckBox;
-
-    @FXML
-    private ImageView diceImageView3;
 
     @FXML
     private CheckBox dice4CheckBox;
@@ -63,10 +57,16 @@ public class GameplayController implements Initializable {
     private CheckBox dice5CheckBox;
 
     @FXML
-    private ImageView diceImageView4;
+    private ImageView diceImage2;
 
     @FXML
-    private ImageView diceImageView5;
+    private ImageView diceImage3;
+
+    @FXML
+    private ImageView diceImage4;
+
+    @FXML
+    private ImageView diceImage5;
 
     @FXML
     private Text diceKeepText;
@@ -216,7 +216,9 @@ public class GameplayController implements Initializable {
 
     @FXML
     void endTurnBttnPressed(ActionEvent event) {
-
+    	Player curPlayer = match.getCurrentPlayer();
+    	this.getCurrentPlayerDiceValues(curPlayer);
+    	this.checkForDiceCombos(curPlayer, diceVals);
     }
     
     @FXML
@@ -286,27 +288,25 @@ public class GameplayController implements Initializable {
 		return TOTAL_NUM_OF_DICE;
 	}
 
-	public void getDiceValues(Player p) {
+	public void getCurrentPlayerDiceValues(Player p) {
 		// get all dice values of desired player
 		int idx = 0;
 		
 		ArrayList<Dice> diceCup = p.getDiceCup();
 		ArrayList<Dice> keepers = p.getKeepers();
-		// get dice values in dice cup
+		// get dice values in current player's dice cup
 		for (int i = 0; i < diceCup.size(); i++) {
 			diceVals[idx++] = diceCup.get(i).getValue();
 		}
-		// get 
+		// get dice values in current player's keepers
 		for (int i = 0; i < keepers.size(); i++) {
 			diceVals[idx++] = diceCup.get(i).getValue();
 		}
-		// print dice values for debugging
-		for (int i = 0; i < diceVals.length; i++) {
-			System.out.print(diceVals[i]);
-		}
-		System.out.println();
-		
-		checkForDiceCombos(p, diceVals);
+//		// print dice values for debugging
+//		for (int i = 0; i < diceVals.length; i++) {
+//			System.out.print(diceVals[i]);
+//		}
+//		System.out.println();
 	}
 	
 	public void checkForDiceCombos(Player p, int [] diceVals) {
@@ -331,8 +331,8 @@ public class GameplayController implements Initializable {
 	}
 	
 	public void checkForLowerSectionCombos(Player p, int [] diceVals) {
-		checkForCombosWithMatches(diceVals);
-		checkForChance(p);
+		this.checkForCombosWithMatches(diceVals);
+		this.checkForChance(p);
 	}
 	
 	// checks for three of a kind, four of a kind, full house, and Yahtzee
@@ -374,10 +374,17 @@ public class GameplayController implements Initializable {
 	
 	// Just check if this combo has been used since it accepts anything
 	public void checkForChance(Player p) {
-		
+		if (p.getScoreCard().getScoreCard().get("chance") == 0) {
+			this.chanceBttn.setDisable(false);
+		}
 	}
 	
 	public void checkForSmallStraight(int [] diceVals) {
+		Player curPlayer = match.getCurrentPlayer();
+		// check if player already has small straight slot filled
+		if (curPlayer.getScoreCard().getScoreCard().get("SmallStraight") != 0) {
+			return;
+		}
 		int [] diceValsSorted = Arrays.copyOf(diceVals, TOTAL_NUM_OF_DICE);
 		Arrays.sort(diceValsSorted);
 		int prevVal = diceVals[0];
@@ -399,9 +406,15 @@ public class GameplayController implements Initializable {
 			prevVal = curVal;
 		}
 		// passes small straight check
+		this.smallBttn.setDisable(false);
 	}
 	
 	public void checkForLargeStraight(int [] diceVals) {
+		Player curPlayer = match.getCurrentPlayer();
+		// check if player already has large straight slot filled
+		if (curPlayer.getScoreCard().getScoreCard().get("LargeStraight") != 0) {
+			return;
+		}
 		int [] diceValsSorted = Arrays.copyOf(diceVals, TOTAL_NUM_OF_DICE);
 		Arrays.sort(diceValsSorted);
 		int prevVal = diceVals[0];
@@ -412,6 +425,7 @@ public class GameplayController implements Initializable {
 			}
 		}
 		// passes large straight check
+		this.largeBttn.setDisable(false);
 	}
 	
 //	public void finishGame() {
@@ -471,6 +485,11 @@ public class GameplayController implements Initializable {
 		this.diceKeepText.setVisible(false);
 		
 		// disable all lower buttons except ROLL button
+		this.resetButtonsForNextPlayer();
+		
+	}
+	
+	public void resetButtonsForNextPlayer() {
 		this.keepBttn.setDisable(true);
 		this.rerollBttn.setDisable(true);
 		this.endTurnBttn.setDisable(true);
@@ -487,6 +506,5 @@ public class GameplayController implements Initializable {
 		this.foursBttn.setDisable(true);
 		this.fivesBttn.setDisable(true);
 		this.sixesBttn.setDisable(true);
-		
 	}
 }
