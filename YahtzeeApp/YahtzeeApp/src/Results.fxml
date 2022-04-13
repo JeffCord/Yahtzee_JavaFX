@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controller.ResultsController">
+   <children>
+      <Label layoutX="222.0" layoutY="113.0" text="Results" AnchorPane.topAnchor="90.0">
+         <font>
+            <Font size="50.0" />
+         </font>
+      </Label>
+      <TextArea layoutX="200.0" layoutY="221.0" prefHeight="200.0" prefWidth="200.0" text="1.&#10;2.&#10;3.&#10;4.&#10;5.&#10;6.&#10;7.&#10;8.&#10;9.&#10;10." />
+      <Label layoutX="198.0" layoutY="163.0" text="Congratulations X!">
+         <font>
+            <Font size="25.0" />
+         </font>
+      </Label>
+      <Button fx:id="backToMainBtn" layoutX="211.0" layoutY="505.0" mnemonicParsing="false" onAction="#backToMainBtnPressed" text="Back to Main Menu" AnchorPane.bottomAnchor="25.0" />
+      <Button fx:id="playAgainBtn" layoutX="247.0" layoutY="439.0" mnemonicParsing="false" onAction="#playAgainBtnPressed" text="Play Again" AnchorPane.bottomAnchor="75.0" />
+   </children>
+</AnchorPane>
