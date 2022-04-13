@@ -6,8 +6,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-
-<AnchorPane fx:id="mainAnchorPane" prefHeight="600.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/17" fx:controller="application.controller.PlayerNamesController">
+<AnchorPane fx:id="mainAnchorPane" prefHeight="600.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controller.PlayerNamesController">
    <children>
       <TextField fx:id="nameTextField" layoutX="190.0" layoutY="207.0" prefHeight="26.0" prefWidth="221.0" promptText="Enter player name" />
       <Button fx:id="confirmBtn" layoutX="252.0" layoutY="274.0" mnemonicParsing="false" onMouseClicked="#confirmNameBtnPressed" text="Confirm Name" />
@@ -18,6 +17,6 @@
          </font>
       </Label>
       <Button fx:id="startGameBtn" layoutX="261.0" layoutY="361.0" mnemonicParsing="false" onMouseClicked="#startGameBtnPressed" text="Start Game" />
-      <Label fx:id="warningLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="264.0" layoutY="244.0" prefHeight="17.0" prefWidth="73.0" />
+      <Label fx:id="warningLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="264.0" layoutY="244.0" text="warningLabel" />
    </children>
 </AnchorPane>
