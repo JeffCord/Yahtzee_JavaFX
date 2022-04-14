@@ -4,6 +4,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.Hashtable;
 import java.util.ResourceBundle;
 
 import application.model.Dice;
@@ -176,10 +177,12 @@ public class GameplayController implements Initializable {
     		Dice curDie = diceCup.get(i);
     		curDie.rollDice();
     		int curDieVal = curDie.getValue();
+    		
     		// TODO update image views
     		
 //    		this.diceImageViews[idx].setImage(diceImages[curDieVal - 1]);
     		idx++;
+    		
     		result += diceCup.get(i).getValue() + " ";
     	}
     	
@@ -215,65 +218,82 @@ public class GameplayController implements Initializable {
     }
 
     @FXML
+    /**
+     * Defines what should happen when the current player is done rolling their dice
+     * @param event
+     */
     void endTurnBttnPressed(ActionEvent event) {
     	Player curPlayer = match.getCurrentPlayer();
+    	// gather what dice values the player ended up with for their turn
     	this.getCurrentPlayerDiceValues(curPlayer);
+    	// enable the buttons the player can use now that they have ended their turn
     	this.checkForDiceCombos(curPlayer, diceVals);
     }
     
     @FXML
     void fivesBttnPressed(ActionEvent event) {
-
+    	Player curPlayer = match.getCurrentPlayer();
+    	Hashtable <String, Integer> scoreCard = curPlayer.getScoreCard().getScoreCard();
     }
 
     @FXML
     void fourBttnPressed(ActionEvent event) {
-
+    	Player curPlayer = match.getCurrentPlayer();
+    	Hashtable <String, Integer> scoreCard = curPlayer.getScoreCard().getScoreCard();
     }
 
     @FXML
     void foursBttnPressed(ActionEvent event) {
-
+    	Player curPlayer = match.getCurrentPlayer();
+    	Hashtable <String, Integer> scoreCard = curPlayer.getScoreCard().getScoreCard();
     }
 
     @FXML
     void fullBttnPressed(ActionEvent event) {
-
+    	Player curPlayer = match.getCurrentPlayer();
+    	Hashtable <String, Integer> scoreCard = curPlayer.getScoreCard().getScoreCard();
     }
 
     @FXML
     void largeBttnPressed(ActionEvent event) {
-
+    	Player curPlayer = match.getCurrentPlayer();
+    	Hashtable <String, Integer> scoreCard = curPlayer.getScoreCard().getScoreCard();
     }
 
     @FXML
     void sixesBttnPressed(ActionEvent event) {
-
+    	Player curPlayer = match.getCurrentPlayer();
+    	Hashtable <String, Integer> scoreCard = curPlayer.getScoreCard().getScoreCard();
     }
 
     @FXML
     void smallBttnPressed(ActionEvent event) {
-
+    	Player curPlayer = match.getCurrentPlayer();
+    	Hashtable <String, Integer> scoreCard = curPlayer.getScoreCard().getScoreCard();
     }
 
     @FXML
     void threeBttnPressed(ActionEvent event) {
-
+    	Player curPlayer = match.getCurrentPlayer();
+    	Hashtable <String, Integer> scoreCard = curPlayer.getScoreCard().getScoreCard();
     }
 
     @FXML
     void threesBttnPressed(ActionEvent event) {
-
+    	Player curPlayer = match.getCurrentPlayer();
+    	Hashtable <String, Integer> scoreCard = curPlayer.getScoreCard().getScoreCard();
     }
 
     @FXML
     void twosBttnPressed(ActionEvent event) {
-
+    	Player curPlayer = match.getCurrentPlayer();
+    	Hashtable <String, Integer> scoreCard = curPlayer.getScoreCard().getScoreCard();
     }
 
     @FXML
     void yahtzeeBttnPressed(ActionEvent event) {
-
+    	Player curPlayer = match.getCurrentPlayer();
+    	Hashtable <String, Integer> scoreCard = curPlayer.getScoreCard().getScoreCard();
     }
 	
 	public int[] getDiceVals() {
@@ -302,11 +322,6 @@ public class GameplayController implements Initializable {
 		for (int i = 0; i < keepers.size(); i++) {
 			diceVals[idx++] = diceCup.get(i).getValue();
 		}
-//		// print dice values for debugging
-//		for (int i = 0; i < diceVals.length; i++) {
-//			System.out.print(diceVals[i]);
-//		}
-//		System.out.println();
 	}
 	
 	public void checkForDiceCombos(Player p, int [] diceVals) {
@@ -316,18 +331,37 @@ public class GameplayController implements Initializable {
 	
 	// this will only check which upper section combos have already been used by the given player
 	public void checkForUpperSectionCombos(Player p, int [] diceVals) {
+		Hashtable <String, Integer> scoreCard = p.getScoreCard().getScoreCard();
+		
 		// check for aces
+		if (scoreCard.get("Aces") == 0) {
+			this.acesBttn.setDisable(false);
+		}
 		
 		// check for twos
+		if (scoreCard.get("Twos") == 0) {
+			this.twosBttn.setDisable(false);
+		}
 		
 		// check for threes
+		if (scoreCard.get("Threes") == 0) {
+			this.threesBttn.setDisable(false);
+		}
 		
 		// check for fours
+		if (scoreCard.get("Fours") == 0) {
+			this.foursBttn.setDisable(false);
+		}
 		
 		// check for fives
+		if (scoreCard.get("Fives") == 0) {
+			this.fivesBttn.setDisable(false);
+		}
 		
 		// check for sixes
-		
+		if (scoreCard.get("Sixes") == 0) {
+			this.sixesBttn.setDisable(false);
+		}
 	}
 	
 	public void checkForLowerSectionCombos(Player p, int [] diceVals) {
@@ -357,15 +391,18 @@ public class GameplayController implements Initializable {
 		}
 		boolean fullHouseFound = pairFound && threeOAKFound;
 		
+		Player p = match.getCurrentPlayer();
+		Hashtable <String, Integer> scoreCard = p.getScoreCard().getScoreCard();
+		
 		// TODO also check if combo has been used by player already (except for a yahtzee combo)
-		if (threeOAKFound) {
-			
+		if (threeOAKFound && scoreCard.get("3-of-a-kind") == 0) {
+			this.threeBttn.setDisable(false);
 		}
-		if (fourOAKFound) {
-			
+		if (fourOAKFound && scoreCard.get("4-of-a-kind") == 0) {
+			this.fourBttn.setDisable(false);
 		}
-		if (fullHouseFound) {
-			
+		if (fullHouseFound && scoreCard.get("FullHouse") == 0) {
+			this.fullBttn.setDisable(false);
 		}
 		if (yahtzeeFound) {
 			

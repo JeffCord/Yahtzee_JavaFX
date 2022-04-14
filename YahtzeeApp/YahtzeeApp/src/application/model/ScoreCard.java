@@ -34,11 +34,11 @@ public class ScoreCard {
 	}
 	
 	public Hashtable<String, Integer> getScoreCard() {
-		return scoreCard;
+		return this.scoreCard;
 	}
 	
 	public boolean isComplete() {
-		return isComplete;
+		return this.isComplete;
 	}
 	
 	//Setters.
@@ -58,18 +58,17 @@ public class ScoreCard {
 		this.scoreCard = scoreCard;
 	}
 
-	
-	//printScoreCard function. Returns the non-overridden toString of the score_card Hashtable.
-	public String printScoreCard()	{
-		return this.scoreCard.toString();
-	}
-	
 	public void setComplete(boolean isComplete) {
 		this.isComplete = isComplete;
 	}
 
 	public void setNumOfYahtzeesScored(int numOfYahtzeesScored) {
 		this.numOfYahtzeesScored = numOfYahtzeesScored;
+	}
+	
+	//printScoreCard function. Returns the non-overridden toString of the score_card Hashtable.
+	public String printScoreCard()	{
+		return this.scoreCard.toString();
 	}
 
 	//toString method custom override.
