@@ -132,7 +132,9 @@ public class GameplayController implements Initializable {
 	
 	public static Match match;
 	
-	private int [] diceVals = new int[TOTAL_NUM_OF_DICE];
+	// used for after a player is done with their 1-3 rolls;
+	// this array is then populated with the player's final dice values for the current turn
+	private int [] diceVals = new int[TOTAL_NUM_OF_DICE]; 
 	
 	private GameplayModel gModel;
 	
@@ -208,16 +210,6 @@ public class GameplayController implements Initializable {
     }
 
     @FXML
-    void acesBttnPressed(ActionEvent event) {
-
-    }
-
-    @FXML
-    void chanceBttnPressed(ActionEvent event) {
-
-    }
-
-    @FXML
     /**
      * Defines what should happen when the current player is done rolling their dice
      * @param event
@@ -231,69 +223,185 @@ public class GameplayController implements Initializable {
     }
     
     @FXML
+    void acesBttnPressed(ActionEvent event) {
+    	Player curPlayer = match.getCurrentPlayer();
+    	Hashtable <String, Integer> scoreCard = curPlayer.getScoreCard().getScoreCard();
+    	// TODO update score
+    	int score = 0;
+    	for (int i = 0; i < TOTAL_NUM_OF_DICE; i++) {
+    		if (diceVals[i] == 1) {
+    			score += 1;
+    		}
+    	}
+    }
+    
+    @FXML
     void fivesBttnPressed(ActionEvent event) {
     	Player curPlayer = match.getCurrentPlayer();
     	Hashtable <String, Integer> scoreCard = curPlayer.getScoreCard().getScoreCard();
+    	// TODO update score
+    	int score = 0;
+    	for (int i = 0; i < TOTAL_NUM_OF_DICE; i++) {
+    		if (diceVals[i] == 5) {
+    			score += 5;
+    		}
+    	}
+    	
     }
 
     @FXML
     void fourBttnPressed(ActionEvent event) {
     	Player curPlayer = match.getCurrentPlayer();
     	Hashtable <String, Integer> scoreCard = curPlayer.getScoreCard().getScoreCard();
+    	// TODO update score
+    	int score = 0;
+    	for (int i = 0; i < TOTAL_NUM_OF_DICE; i++) {
+    		score += diceVals[i];
+    	}
+    	scoreCard.put("4-of-a-kind", score);
     }
 
     @FXML
     void foursBttnPressed(ActionEvent event) {
     	Player curPlayer = match.getCurrentPlayer();
     	Hashtable <String, Integer> scoreCard = curPlayer.getScoreCard().getScoreCard();
+    	// TODO update score
+    	int score = 0;
+    	for (int i = 0; i < TOTAL_NUM_OF_DICE; i++) {
+    		if (diceVals[i] == 4) {
+    			score += 4;
+    		}
+    	}
+    	scoreCard.put("Fours", score);
     }
 
     @FXML
     void fullBttnPressed(ActionEvent event) {
     	Player curPlayer = match.getCurrentPlayer();
     	Hashtable <String, Integer> scoreCard = curPlayer.getScoreCard().getScoreCard();
+    	// TODO update score
+    	int score = 25;
+    	scoreCard.put("FullHouse", score);
     }
 
     @FXML
     void largeBttnPressed(ActionEvent event) {
     	Player curPlayer = match.getCurrentPlayer();
     	Hashtable <String, Integer> scoreCard = curPlayer.getScoreCard().getScoreCard();
+    	// TODO update score
+    	int score = 40;
+    	scoreCard.put("LargeStraight", score);
     }
 
     @FXML
     void sixesBttnPressed(ActionEvent event) {
     	Player curPlayer = match.getCurrentPlayer();
     	Hashtable <String, Integer> scoreCard = curPlayer.getScoreCard().getScoreCard();
+    	// TODO update score
+    	int score = 0;
+    	for (int i = 0; i < TOTAL_NUM_OF_DICE; i++) {
+    		if (diceVals[i] == 6) {
+    			score += 6;
+    		}
+    	}
+    	scoreCard.put("Sixes", score);
     }
 
     @FXML
     void smallBttnPressed(ActionEvent event) {
     	Player curPlayer = match.getCurrentPlayer();
     	Hashtable <String, Integer> scoreCard = curPlayer.getScoreCard().getScoreCard();
+    	// TODO update score
+    	int score = 30;
+    	scoreCard.put("SmallStraight", score);
     }
 
     @FXML
     void threeBttnPressed(ActionEvent event) {
     	Player curPlayer = match.getCurrentPlayer();
     	Hashtable <String, Integer> scoreCard = curPlayer.getScoreCard().getScoreCard();
+    	// TODO update score
+    	int score = 0;
+    	for (int i = 0; i < TOTAL_NUM_OF_DICE; i++) {
+    		score += diceVals[i];
+    	}
+    	scoreCard.put("3-of-a-kind", score);
     }
 
     @FXML
     void threesBttnPressed(ActionEvent event) {
     	Player curPlayer = match.getCurrentPlayer();
     	Hashtable <String, Integer> scoreCard = curPlayer.getScoreCard().getScoreCard();
+    	// TODO update score
+    	int score = 0;
+    	for (int i = 0; i < TOTAL_NUM_OF_DICE; i++) {
+    		if (diceVals[i] == 3) {
+    			score += 3;
+    		}
+    	}
+    	scoreCard.put("Threes", score);
     }
 
     @FXML
     void twosBttnPressed(ActionEvent event) {
     	Player curPlayer = match.getCurrentPlayer();
     	Hashtable <String, Integer> scoreCard = curPlayer.getScoreCard().getScoreCard();
+    	// TODO update score
+    	int score = 0;
+    	for (int i = 0; i < TOTAL_NUM_OF_DICE; i++) {
+    		if (diceVals[i] == 2) {
+    			score += 2;
+    		}
+    	}
+    	scoreCard.put("Twos", score);
     }
 
     @FXML
     void yahtzeeBttnPressed(ActionEvent event) {
     	Player curPlayer = match.getCurrentPlayer();
     	Hashtable <String, Integer> scoreCard = curPlayer.getScoreCard().getScoreCard();
+    	// TODO update score
+    	
+    	// check if player has not yet used their Yahtzee slot
+    	if (scoreCard.get("Yahtzee") == -1) {
+    		int score = 50;
+    		scoreCard.put("Yahtzee", score);
+    		incrementNumberOfYahtzeesScored(curPlayer); // increment value to show player's first yahtzee
+    	} else {
+    		// if player has already used their Yahtzee slot
+    		// figure out what kind of yahtzee it is, 
+    		int sampleDieVal = diceVals[0];
+    		
+    		if (sampleDieVal == 1) {
+    			
+    		} else if (sampleDieVal == 2) {
+    			
+    		} else if (sampleDieVal == 3) {
+    			
+    		} else if (sampleDieVal == 4) {
+    			
+    		} else if (sampleDieVal == 5) {
+    			
+    		} else {
+    			
+    		}
+    	}
+    }
+    
+    public void incrementNumberOfYahtzeesScored(Player p) {
+    	int numOfYahtzeesScored = p.getScoreCard().getNumOfYahtzeesScored() + 1;
+		p.getScoreCard().setNumOfYahtzeesScored(numOfYahtzeesScored);
+    }
+    
+    @FXML
+    void chanceBttnPressed(ActionEvent event) {
+    	Player curPlayer = match.getCurrentPlayer();
+    	Hashtable <String, Integer> scoreCard = curPlayer.getScoreCard().getScoreCard();
+    	// TODO update score
+    	int score = 0;
+    	for (int i = 0; i < TOTAL_NUM_OF_DICE; i++) {
+    		score += diceVals[i];
+    	}
     }
 	
 	public int[] getDiceVals() {
@@ -334,32 +442,32 @@ public class GameplayController implements Initializable {
 		Hashtable <String, Integer> scoreCard = p.getScoreCard().getScoreCard();
 		
 		// check for aces
-		if (scoreCard.get("Aces") == 0) {
+		if (scoreCard.get("Aces") == -1) {
 			this.acesBttn.setDisable(false);
 		}
 		
 		// check for twos
-		if (scoreCard.get("Twos") == 0) {
+		if (scoreCard.get("Twos") == -1) {
 			this.twosBttn.setDisable(false);
 		}
 		
 		// check for threes
-		if (scoreCard.get("Threes") == 0) {
+		if (scoreCard.get("Threes") == -1) {
 			this.threesBttn.setDisable(false);
 		}
 		
 		// check for fours
-		if (scoreCard.get("Fours") == 0) {
+		if (scoreCard.get("Fours") == -1) {
 			this.foursBttn.setDisable(false);
 		}
 		
 		// check for fives
-		if (scoreCard.get("Fives") == 0) {
+		if (scoreCard.get("Fives") == -1) {
 			this.fivesBttn.setDisable(false);
 		}
 		
 		// check for sixes
-		if (scoreCard.get("Sixes") == 0) {
+		if (scoreCard.get("Sixes") == -1) {
 			this.sixesBttn.setDisable(false);
 		}
 	}
@@ -395,23 +503,24 @@ public class GameplayController implements Initializable {
 		Hashtable <String, Integer> scoreCard = p.getScoreCard().getScoreCard();
 		
 		// TODO also check if combo has been used by player already (except for a yahtzee combo)
-		if (threeOAKFound && scoreCard.get("3-of-a-kind") == 0) {
+		if (threeOAKFound && scoreCard.get("3-of-a-kind") == -1) {
 			this.threeBttn.setDisable(false);
 		}
-		if (fourOAKFound && scoreCard.get("4-of-a-kind") == 0) {
+		if (fourOAKFound && scoreCard.get("4-of-a-kind") == -1) {
 			this.fourBttn.setDisable(false);
 		}
-		if (fullHouseFound && scoreCard.get("FullHouse") == 0) {
+		if (fullHouseFound && scoreCard.get("FullHouse") == -1) {
 			this.fullBttn.setDisable(false);
 		}
-		if (yahtzeeFound) {
-			
+		if (yahtzeeFound) { // a player can have multiple Yahtzees per game
+			// TODO check if there are any cases where the player should NOT be able to use a yahtzee combo
+			this.yahtzeeBttn.setDisable(false);
 		}
 	}
 	
 	// Just check if this combo has been used since it accepts anything
 	public void checkForChance(Player p) {
-		if (p.getScoreCard().getScoreCard().get("chance") == 0) {
+		if (p.getScoreCard().getScoreCard().get("Chance") == -1) {
 			this.chanceBttn.setDisable(false);
 		}
 	}
@@ -419,7 +528,7 @@ public class GameplayController implements Initializable {
 	public void checkForSmallStraight(int [] diceVals) {
 		Player curPlayer = match.getCurrentPlayer();
 		// check if player already has small straight slot filled
-		if (curPlayer.getScoreCard().getScoreCard().get("SmallStraight") != 0) {
+		if (curPlayer.getScoreCard().getScoreCard().get("SmallStraight") != -1) {
 			return;
 		}
 		int [] diceValsSorted = Arrays.copyOf(diceVals, TOTAL_NUM_OF_DICE);
@@ -439,6 +548,7 @@ public class GameplayController implements Initializable {
 			int curVal = diceVals[i];
 			if (prevVal != curVal - 1) {
 				// higher small straight not possible, thus no small straight is possible
+				return;
 			}
 			prevVal = curVal;
 		}
@@ -449,7 +559,7 @@ public class GameplayController implements Initializable {
 	public void checkForLargeStraight(int [] diceVals) {
 		Player curPlayer = match.getCurrentPlayer();
 		// check if player already has large straight slot filled
-		if (curPlayer.getScoreCard().getScoreCard().get("LargeStraight") != 0) {
+		if (curPlayer.getScoreCard().getScoreCard().get("LargeStraight") != -1) {
 			return;
 		}
 		int [] diceValsSorted = Arrays.copyOf(diceVals, TOTAL_NUM_OF_DICE);
@@ -459,6 +569,7 @@ public class GameplayController implements Initializable {
 			int curVal = diceVals[i];
 			if (prevVal != curVal - 1) {
 				// large straight not possible
+				return;
 			}
 		}
 		// passes large straight check

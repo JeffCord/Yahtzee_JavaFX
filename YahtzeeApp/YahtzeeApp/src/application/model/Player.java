@@ -8,13 +8,14 @@ public class Player {
 	private String playerName;
 	private ArrayList<Dice> diceCup = new ArrayList<Dice>();
 	private ArrayList<Dice> keepers = new ArrayList<Dice>();
-	private ScoreCard card = new ScoreCard();
+	private ScoreCard scoreCard = new ScoreCard();
+
 	public static final int TOTAL_NUM_OF_DICE = 5;
 
 	//Player constructor. Takes a string as the player's name and creates 5 dice for their diceCup.
 	public Player(String name) {
 		this.playerName=name;
-		this.card.setPlayerName(name);
+		this.scoreCard.setPlayerName(name);
 		for(int i=0;i<5;i++) {
 			Dice newDice = new Dice();
 			this.diceCup.add(newDice);
@@ -69,17 +70,13 @@ public class Player {
 		this.keepers = keepers;
 	}
 
-	public ScoreCard getCard() {
-		return card;
-	}
-
-	public void setCard(ScoreCard card) {
-		this.card = card;
-	}
-
 	//getScoreCard function. Returns card object.
 	public ScoreCard getScoreCard()	{
-		return this.card;
+		return this.scoreCard;
+	}
+	
+	public void setScoreCard(ScoreCard scoreCard) {
+		this.scoreCard = scoreCard;
 	}
 	
 	//getPlayerName function. Returns this player's player name.
@@ -90,6 +87,7 @@ public class Player {
 	public void setPlayerName(String newPlayerName) {
 		this.playerName = newPlayerName;
 	}
+	
 	
 	//toString method. Prints the player's name, diceCup contents, and keepers contents.
 	@Override

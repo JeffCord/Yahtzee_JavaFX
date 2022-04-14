@@ -5,18 +5,18 @@ import java.util.Hashtable;
 public class ScoreCard {
 	
 	//Initialization of important variables.
-	String playerName;
-	String[] keys = new String[] {"Aces","Twos","Threes","Fours","Fives","Sixes","UpperBonus"
+	private String playerName;
+	private String[] keys = new String[] {"Aces","Twos","Threes","Fours","Fives","Sixes","UpperBonus"
 			,"UpperTotal","3-of-a-kind","4-of-a-kind","FullHouse","SmallStraight","LargeStraight"
 			,"YAHTZEE","Chance","YahtzeeBonus","LowerTotal","GrandTotal"};
-	Hashtable<String, Integer> scoreCard = new Hashtable<String,Integer>();
-	boolean isComplete = false;
-	int numOfYahtzeesScored = 0;
+	private Hashtable<String, Integer> scoreCard = new Hashtable<String,Integer>();
+	private boolean isComplete = false;
+	private int numOfYahtzeesScored = 0;
 	
 	//ScoreCard constructor. Assigns player name and initializes scoreCard HashMap.
 	public ScoreCard() {
 		for(String a : this.keys) {
-			this.scoreCard.put(a, 0);
+			this.scoreCard.put(a, -1);
 		}
 	}
 	
