@@ -8,7 +8,7 @@ public class ScoreCard {
 	private String playerName;
 	private String[] keys = new String[] {"Aces","Twos","Threes","Fours","Fives","Sixes","UpperBonus"
 			,"UpperTotal","3-of-a-kind","4-of-a-kind","FullHouse","SmallStraight","LargeStraight"
-			,"YAHTZEE","Chance","YahtzeeBonus","LowerTotal","GrandTotal"};
+			,"Yahtzee","Chance","YahtzeeBonus","LowerTotal","GrandTotal"};
 	private Hashtable<String, Integer> scoreCard = new Hashtable<String,Integer>();
 	private boolean isComplete = false;
 	private int numOfYahtzeesScored = 0;
