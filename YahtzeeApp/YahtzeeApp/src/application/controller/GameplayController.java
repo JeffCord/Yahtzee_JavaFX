@@ -318,6 +318,7 @@ public class GameplayController implements Initializable {
     		}
     	}
     	scoreCard.put("Aces", score);
+    	this.changeToNextTurn();
     }
     
     @FXML
@@ -944,8 +945,25 @@ public class GameplayController implements Initializable {
 		
 	}
 	
+	public void changeToNextTurn() {
+		System.out.println(match.getCurrentPlayer().getScoreCard().toString());
+		
+		// change the player to the next one in the roster
+		match.nextTurn();
+		
+		//set up text boxes
+		this.currentPlayerName.setText(match.getCurrentPlayer().getPlayerName());
+		this.currentPlayerScore.setText("Overall score: ");
+		this.comboPointsText.setVisible(false);
+		this.diceKeepText.setVisible(false);
+		
+		// set up buttons
+		this.resetButtonsForNextPlayer();
+	}
+	
 	public void resetButtonsForNextPlayer() {
 		// TODO disable toggles for each die
+		this.rollBttn.setDisable(false);
 		this.keepBttn.setDisable(true);
 		this.rerollBttn.setDisable(true);
 		this.endTurnBttn.setDisable(true);
