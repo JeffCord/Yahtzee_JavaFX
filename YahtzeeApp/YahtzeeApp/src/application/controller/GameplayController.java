@@ -294,7 +294,7 @@ public class GameplayController implements Initializable {
 		if (scoreCard.get("Chance") == -1) {
 			this.chanceBttn.setDisable(false);
 		}
-		// TODO fix
+		
 		// a player can ONLY score a Yahtzee or bonus Yahtzee if they haven't already
 		// used the Yahtzee slot as a scratch for 0 points
 		if (scoreCard.get("Yahtzee") == -1 || p.getScoreCard().getNumOfYahtzeesScored() > 0) { 
