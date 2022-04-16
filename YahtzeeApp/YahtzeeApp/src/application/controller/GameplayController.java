@@ -686,6 +686,7 @@ public class GameplayController implements Initializable {
     				// TODO player must choose any other open slot EXCEPT Sixes
     			}
     		}
+    		this.incrementNumberOfYahtzeesScored(curPlayer);
     	}
     }
     
@@ -786,10 +787,12 @@ public class GameplayController implements Initializable {
 	
 	public void checkForLowerSectionCombos(Player p, int [] diceVals) {
 		this.checkForCombosWithMatches(diceVals);
+		this.checkForSmallStraight(diceVals);
+		this.checkForLargeStraight(diceVals);
 		this.checkForChance(p);
 	}
 	
-	// checks for three of a kind, four of a kind, full house, and Yahtzee
+	// checks for three of a kind, four of a kind, and full house
 	public void checkForCombosWithMatches(int [] diceVals) {
 		// store how many of each die value the player has
 		HashMap <Integer, Integer> tally = new HashMap<>();
@@ -801,13 +804,11 @@ public class GameplayController implements Initializable {
 		boolean pairFound = false;
 		boolean threeOAKFound = false;
 		boolean fourOAKFound = false;
-		boolean yahtzeeFound = false;
 		for (int key : tally.keySet()) {
 			int val = tally.get(key);
 			if (val == 2) pairFound = true;
 			if (val >= 3) threeOAKFound = true;
 			if (val >= 4) fourOAKFound = true;
-			if (val == 5) yahtzeeFound = true;
 		}
 		boolean fullHouseFound = pairFound && threeOAKFound;
 		
