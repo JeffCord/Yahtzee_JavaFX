@@ -16,6 +16,8 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
+import javafx.scene.control.RadioButton;
+import javafx.scene.control.ToggleGroup;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
@@ -24,11 +26,58 @@ import javafx.scene.text.Text;
 
 public class GameplayController implements Initializable {
 
+	
+	
     @FXML
-    private Button acesBttn;
+    private ImageView diceImageView5;
 
     @FXML
-    private Button chanceBttn;
+    private Button threeBttn;
+
+    @FXML
+    private ImageView diceImageView1;
+
+    @FXML
+    private Button smallBttn;
+
+    @FXML
+    private ImageView diceImageView2;
+
+    @FXML
+    private RadioButton dice1RerollRadio;
+
+    @FXML
+    private ToggleGroup dice5Action;
+
+    @FXML
+    private ImageView diceImageView3;
+
+    @FXML
+    private ImageView diceImageView4;
+
+    @FXML
+    private RadioButton dice4RerollRadio;
+
+    @FXML
+    private Text diceKeepText;
+
+    @FXML
+    private RadioButton dice4KeepRadio;
+
+    @FXML
+    private RadioButton dice1KeepRadio;
+
+    @FXML
+    private Button fourBttn;
+
+    @FXML
+    private Button largeBttn;
+
+    @FXML
+    private ToggleGroup dice2Action;
+
+    @FXML
+    private AnchorPane gamePlayPanel;
 
     @FXML
     private Text comboPointsText;
@@ -37,94 +86,76 @@ public class GameplayController implements Initializable {
     private Text currentPlayerName;
 
     @FXML
-    private Text currentPlayerScore;
-
-    @FXML
-    private CheckBox dice1CheckBox;
-
-    @FXML
-    private ImageView dice1Image;
-
-    @FXML
-    private CheckBox dice2CheckBox;
-
-    @FXML
-    private CheckBox dice3CheckBox;
-
-    @FXML
-    private CheckBox dice4CheckBox;
-
-    @FXML
-    private CheckBox dice5CheckBox;
-
-    @FXML
-    private ImageView diceImage2;
-
-    @FXML
-    private ImageView diceImage3;
-
-    @FXML
-    private ImageView diceImage4;
-
-    @FXML
-    private ImageView diceImage5;
-
-    @FXML
-    private Text diceKeepText;
-
-    @FXML
     private Rectangle dicePanel;
-    
-    @FXML
-    private Button endTurnBttn;
 
     @FXML
-    private Button fivesBttn;
+    private Button acesBttn;
 
     @FXML
-    private Button fourBttn;
+    private RadioButton dice2RerollRadio;
 
     @FXML
-    private Button foursBttn;
+    private RadioButton dice3RerollRadio;
 
     @FXML
-    private Button fullBttn;
+    private ToggleGroup dice4Action;
 
     @FXML
-    private AnchorPane gamePlayPanel;
-
-    @FXML
-    private Button keepBttn;
-
-    @FXML
-    private Button largeBttn;
-
-    @FXML
-    private Button rerollBttn;
+    private RadioButton dice3KeepRadio;
 
     @FXML
     private Button rollBttn;
 
     @FXML
-    private Button saveExitBttn;
+    private Button checkScoreCardBttn;
+
+    @FXML
+    private Button fivesBttn;
+
+    @FXML
+    private RadioButton dice5KeepRadio;
+
+    @FXML
+    private Button goToNextBttn;
+
+    @FXML
+    private Button foursBttn;
+
+    @FXML
+    private RadioButton dice2KeepRadio;
+
+    @FXML
+    private ToggleGroup dice1Action;
 
     @FXML
     private Button sixesBttn;
 
     @FXML
-    private Button smallBttn;
+    private Button yahtzeeBttn;
 
     @FXML
-    private Button threeBttn;
+    private Button chanceBttn;
+
+    @FXML
+    private Button endTurnBttn;
+
+    @FXML
+    private Button fullBttn;
+
+    @FXML
+    private RadioButton dice5RerollRadio;
+
+    @FXML
+    private ToggleGroup dice3Action;
+
+    @FXML
+    private Button saveExitBttn;
 
     @FXML
     private Button threesBttn;
 
     @FXML
     private Button twosBttn;
-
-    @FXML
-    private Button yahtzeeBttn;
     
     final int TOTAL_NUM_OF_DICE = 5;
     
@@ -160,6 +191,16 @@ public class GameplayController implements Initializable {
 //	private ImageView [] diceImageViews = new ImageView[5];
 
 // TODO change to next player after current player enters a score
+    @FXML
+    void CheckScoreCardBttnPressed(ActionEvent event) {
+
+    }
+    
+    @FXML
+    void goToNextBttnPressed(ActionEvent event) {
+
+    }
+	
 	
     @FXML
     void KeepBttnPressed(ActionEvent event) {
