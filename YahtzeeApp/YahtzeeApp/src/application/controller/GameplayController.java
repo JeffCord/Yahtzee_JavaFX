@@ -177,7 +177,7 @@ public class GameplayController implements Initializable {
 	// TODO open pop up score card of current player
     @FXML
     void CheckScoreCardBttnPressed(ActionEvent event) {
-
+    	ScoreCardController.display(match.getCurrentPlayer());
     }
 
     @FXML
@@ -1065,7 +1065,7 @@ public class GameplayController implements Initializable {
 //	}
 	
 	public void changeToNextTurn() {
-		System.out.println(match.getCurrentPlayer().getScoreCard().toString());
+		//System.out.println(match.getCurrentPlayer().getScoreCard().toString());
 		
 		// change the player to the next one in the roster
 		match.nextTurn();
