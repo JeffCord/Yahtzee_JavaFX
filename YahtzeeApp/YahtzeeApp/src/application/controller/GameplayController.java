@@ -24,9 +24,6 @@ import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 
 public class GameplayController implements Initializable {
-
-	
-	
     @FXML
     private ImageView diceImageView5;
 
@@ -136,7 +133,7 @@ public class GameplayController implements Initializable {
     private Button chanceBttn;
 
     @FXML
-    private Button endTurnBttn;
+    private Button endRollPhaseBttn;
 
     @FXML
     private Button fullBttn;
@@ -201,12 +198,37 @@ public class GameplayController implements Initializable {
     }
 
     @FXML
+    void dice1ActionPressed(ActionEvent event) {
+
+    }
+
+    @FXML
+    void dice2ActionPressed(ActionEvent event) {
+
+    }
+
+    @FXML
+    void dice3ActionPressed(ActionEvent event) {
+
+    }
+
+    @FXML
+    void dice4ActionPressed(ActionEvent event) {
+
+    }
+
+    @FXML
+    void dice5ActionPressed(ActionEvent event) {
+
+    }
+
+    @FXML
     /*
      * roll each die in the current player's dice cup
      */
     void RollBttnPressed(ActionEvent event) {
     	this.numOfRolls++; // increment the number of rolls the current player has done
-    	this.endTurnBttn.setDisable(false); // enable the end turn button after roll button is pressed
+    	this.endRollPhaseBttn.setDisable(false); // enable the end turn button after roll button is pressed
     	
     	Player p = match.getCurrentPlayer();
     	ArrayList<Dice> diceCup = p.getDiceCup(); // get the current player's dice cup (contains dice that will be rolled)
@@ -257,7 +279,7 @@ public class GameplayController implements Initializable {
      * Defines what should happen when the current player is done rolling their dice
      * @param event
      */
-    void endTurnBttnPressed(ActionEvent event) {
+    void endRollPhaseBttnPressed(ActionEvent event) {
     	// if they decide to end their turn before their third roll, disable the roll button
     	this.rollBttn.setDisable(true); 
     	this.endTurn();
@@ -268,7 +290,7 @@ public class GameplayController implements Initializable {
      * either by pressing the "End Turn" button, or by rolling 3 times
      */
     public void endTurn() {
-    	this.endTurnBttn.setDisable(true); // disable the end turn button
+    	this.endRollPhaseBttn.setDisable(true); // disable the end turn button
     	Player curPlayer = match.getCurrentPlayer();
     	System.out.println("End of " + curPlayer.getPlayerName() + "'s turn");
     	// gather what dice values the player ended up with for their turn
@@ -856,7 +878,10 @@ public class GameplayController implements Initializable {
 		}
 	}
 	
-	// Just check if this combo has been used since it accepts anything
+	/**
+	 * Just check if this combo has been used since it accepts anything
+	 * @param p
+	 */
 	public void checkForChance(Player p) {
 		if (p.getScoreCard().getScoreCard().get("Chance") == -1) {
 			this.chanceBttn.setDisable(false);
@@ -992,7 +1017,7 @@ public class GameplayController implements Initializable {
 	public void resetButtonsForNextPlayer() {
 		// TODO disable toggles for each die
 		this.rollBttn.setDisable(false);
-		this.endTurnBttn.setDisable(true);
+		this.endRollPhaseBttn.setDisable(true);
 		this.chanceBttn.setDisable(true);
 		this.threeBttn.setDisable(true);
 		this.fourBttn.setDisable(true);
