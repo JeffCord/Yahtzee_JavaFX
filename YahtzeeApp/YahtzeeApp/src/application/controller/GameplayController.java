@@ -15,7 +15,6 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
-import javafx.scene.control.CheckBox;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.image.Image;
@@ -198,17 +197,6 @@ public class GameplayController implements Initializable {
     
     @FXML
     void goToNextBttnPressed(ActionEvent event) {
-
-    }
-	
-	
-    @FXML
-    void KeepBttnPressed(ActionEvent event) {
-
-    }
-
-    @FXML
-    void RerollBttnPressed(ActionEvent event) {
 
     }
 
@@ -978,7 +966,6 @@ public class GameplayController implements Initializable {
 		
 		// set up text boxes
 		this.currentPlayerName.setText(match.getCurrentPlayer().getPlayerName());
-		this.currentPlayerScore.setText("Overall score: ");
 		this.comboPointsText.setVisible(false);
 		this.diceKeepText.setVisible(false);
 		
@@ -995,7 +982,6 @@ public class GameplayController implements Initializable {
 		
 		//set up text boxes
 		this.currentPlayerName.setText(match.getCurrentPlayer().getPlayerName());
-		this.currentPlayerScore.setText("Overall score: ");
 		this.comboPointsText.setVisible(false);
 		this.diceKeepText.setVisible(false);
 		
@@ -1006,8 +992,6 @@ public class GameplayController implements Initializable {
 	public void resetButtonsForNextPlayer() {
 		// TODO disable toggles for each die
 		this.rollBttn.setDisable(false);
-		this.keepBttn.setDisable(true);
-		this.rerollBttn.setDisable(true);
 		this.endTurnBttn.setDisable(true);
 		this.chanceBttn.setDisable(true);
 		this.threeBttn.setDisable(true);
