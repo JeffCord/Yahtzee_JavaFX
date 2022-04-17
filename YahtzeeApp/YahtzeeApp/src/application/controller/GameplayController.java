@@ -194,7 +194,7 @@ public class GameplayController implements Initializable {
     
     @FXML
     void goToNextBttnPressed(ActionEvent event) {
-
+    	this.changeToNextTurn();
     }
 
     @FXML
@@ -262,11 +262,52 @@ public class GameplayController implements Initializable {
     	}
     	System.out.println("DICE: " + result);
     	
+    	this.showAllRadioButtons();
+    	
     	// if they run out of rolls, disable roll button and end the turn
     	if (this.numOfRolls == MAX_ROLLS) {
     		this.rollBttn.setDisable(true); 
-    		this.endTurn();					
+    		this.endRollPhase();					
     	}
+    }
+    
+    void showAllRadioButtons() {
+    	this.dice1KeepRadio.setVisible(true);
+		this.dice1RerollRadio.setVisible(true);
+		this.dice2KeepRadio.setVisible(true);
+		this.dice2RerollRadio.setVisible(true);
+		this.dice3KeepRadio.setVisible(true);
+		this.dice3RerollRadio.setVisible(true);
+		this.dice4KeepRadio.setVisible(true);
+		this.dice4RerollRadio.setVisible(true);
+		this.dice5KeepRadio.setVisible(true);
+		this.dice5RerollRadio.setVisible(true);
+    }
+    
+    void hideAllRadioButtons() {
+    	this.dice1KeepRadio.setVisible(false);
+		this.dice1RerollRadio.setVisible(false);
+		this.dice2KeepRadio.setVisible(false);
+		this.dice2RerollRadio.setVisible(false);
+		this.dice3KeepRadio.setVisible(false);
+		this.dice3RerollRadio.setVisible(false);
+		this.dice4KeepRadio.setVisible(false);
+		this.dice4RerollRadio.setVisible(false);
+		this.dice5KeepRadio.setVisible(false);
+		this.dice5RerollRadio.setVisible(false);
+    }
+    
+    void deselectAllRadioButtons() {
+		this.dice1KeepRadio.setSelected(false);
+		this.dice1RerollRadio.setSelected(false);
+		this.dice2KeepRadio.setSelected(false);
+		this.dice2RerollRadio.setSelected(false);
+		this.dice3KeepRadio.setSelected(false);
+		this.dice3RerollRadio.setSelected(false);
+		this.dice4KeepRadio.setSelected(false);
+		this.dice4RerollRadio.setSelected(false);
+		this.dice5KeepRadio.setSelected(false);
+		this.dice5RerollRadio.setSelected(false);
     }
 
     @FXML
@@ -282,15 +323,16 @@ public class GameplayController implements Initializable {
     void endRollPhaseBttnPressed(ActionEvent event) {
     	// if they decide to end their turn before their third roll, disable the roll button
     	this.rollBttn.setDisable(true); 
-    	this.endTurn();
+    	this.endRollPhase();
     }
     
     /**
      * Defines what happens when the current player's roll phase ends,
      * either by pressing the "End Turn" button, or by rolling 3 times
      */
-    public void endTurn() {
+    public void endRollPhase() {
     	this.endRollPhaseBttn.setDisable(true); // disable the end turn button
+    	this.hideAllRadioButtons();
     	Player curPlayer = match.getCurrentPlayer();
     	System.out.println("End of " + curPlayer.getPlayerName() + "'s turn");
     	// gather what dice values the player ended up with for their turn
@@ -369,10 +411,22 @@ public class GameplayController implements Initializable {
     		}
     	}
     	scoreCard.put("Aces", score);
-    	this.changeToNextTurn();
+    	this.playerSelectedCombo("Aces", score);
     }
     
-    @FXML
+    void playerSelectedCombo(String comboName, int comboScore) {
+		// TODO 
+    	this.disableComboButtons();
+    	this.goToNextBttn.setDisable(false);
+    	this.comboPointsText.setVisible(true);
+    	if (comboScore == 1) {
+    		this.comboPointsText.setText(comboName + "\n" + match.getCurrentPlayer().getPlayerName() + " scored " + comboScore + " point!");
+    	} else {
+    		this.comboPointsText.setText(comboName + "\n" + match.getCurrentPlayer().getPlayerName() + " scored " + comboScore + " points!");
+    	}
+	}
+
+	@FXML
     /**
      * Adds up all dice with the value of 5
      * @param event
@@ -1015,8 +1069,18 @@ public class GameplayController implements Initializable {
 	}
 	
 	public void resetButtonsForNextPlayer() {
-		// TODO disable toggles for each die
+		// remove toggles for each die
+		this.hideAllRadioButtons();
+		
+		// enable roll button
 		this.rollBttn.setDisable(false);
+		 
+		// disable combo and go to next player buttons
+		this.disableComboButtons();	
+		this.goToNextBttn.setDisable(true);
+	}
+
+	void disableComboButtons() {
 		this.endRollPhaseBttn.setDisable(true);
 		this.chanceBttn.setDisable(true);
 		this.threeBttn.setDisable(true);
@@ -1030,6 +1094,6 @@ public class GameplayController implements Initializable {
 		this.threesBttn.setDisable(true);
 		this.foursBttn.setDisable(true);
 		this.fivesBttn.setDisable(true);
-		this.sixesBttn.setDisable(true);	
+		this.sixesBttn.setDisable(true);
 	}
 }
