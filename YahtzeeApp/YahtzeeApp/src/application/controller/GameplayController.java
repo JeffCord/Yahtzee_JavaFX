@@ -264,7 +264,6 @@ public class GameplayController implements Initializable {
 	    		curDie.rollDice();
     		}
     	}
-    	System.out.println(p.toString());
     	
     	// update image views for dice
     	Dice [] allDice = p.getAllDice();
