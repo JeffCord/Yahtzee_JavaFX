@@ -5,18 +5,18 @@ import java.util.Hashtable;
 public class ScoreCard {
 	
 	//Initialization of important variables.
-	String playerName;
-	String[] keys = new String[] {"Aces","Twos","Threes","Fours","Fives","Sixes","UpperBonus"
+	private String playerName;
+	private String[] keys = new String[] {"Aces","Twos","Threes","Fours","Fives","Sixes","UpperBonus"
 			,"UpperTotal","3-of-a-kind","4-of-a-kind","FullHouse","SmallStraight","LargeStraight"
-			,"YAHTZEE","Chance","YahtzeeBonus","LowerTotal","GrandTotal"};
-	Hashtable<String, Integer> scoreCard = new Hashtable<String,Integer>();
-	boolean isComplete = false;
-	int numOfYahtzeesScored = 0;
+			,"Yahtzee","Chance","YahtzeeBonus","LowerTotal","GrandTotal"};
+	private Hashtable<String, Integer> scoreCard = new Hashtable<String,Integer>();
+	private boolean isComplete = false;
+	private int numOfYahtzeesScored = 0;
 	
 	//ScoreCard constructor. Assigns player name and initializes scoreCard HashMap.
 	public ScoreCard() {
 		for(String a : this.keys) {
-			this.scoreCard.put(a, 0);
+			this.scoreCard.put(a, -1);
 		}
 	}
 	
@@ -34,11 +34,11 @@ public class ScoreCard {
 	}
 	
 	public Hashtable<String, Integer> getScoreCard() {
-		return scoreCard;
+		return this.scoreCard;
 	}
 	
 	public boolean isComplete() {
-		return isComplete;
+		return this.isComplete;
 	}
 	
 	//returns total value/score of scoreCard (used to find a player's final score)
@@ -69,18 +69,17 @@ public class ScoreCard {
 		this.scoreCard = scoreCard;
 	}
 
-	
-	//printScoreCard function. Returns the non-overridden toString of the score_card Hashtable.
-	public String printScoreCard()	{
-		return this.scoreCard.toString();
-	}
-	
 	public void setComplete(boolean isComplete) {
 		this.isComplete = isComplete;
 	}
 
 	public void setNumOfYahtzeesScored(int numOfYahtzeesScored) {
 		this.numOfYahtzeesScored = numOfYahtzeesScored;
+	}
+	
+	//printScoreCard function. Returns the non-overridden toString of the score_card Hashtable.
+	public String printScoreCard()	{
+		return this.scoreCard.toString();
 	}
 
 	//toString method custom override.

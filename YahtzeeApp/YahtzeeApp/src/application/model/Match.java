@@ -12,6 +12,8 @@ public class Match {
 	Player currentPlayer;
 	ArrayList<Player> players = new ArrayList<Player>();
 	
+	static Player winner = null;
+	
 	//Match constructor. Takes an int n, number of players, and assigns it to playerCounter.
 	//Initializes turnCounter to zero.
 	public Match(int n) {
@@ -73,6 +75,14 @@ public class Match {
 
 	public void setPlayers(ArrayList<Player> players) {
 		this.players = players;
+	}
+	
+	public static Player getWinner() {
+		return winner;
+	}
+
+	public static void setWinner(Player winner) {
+		Match.winner = winner;
 	}
 
 	//nextTurn function. Set currentPlayer to the next in players ArrayList and increment turnCounter.
