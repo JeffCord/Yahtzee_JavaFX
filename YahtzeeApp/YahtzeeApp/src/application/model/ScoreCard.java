@@ -5,23 +5,23 @@ import java.util.Hashtable;
 public class ScoreCard {
 	
 	//Initialization of important variables.
-	String playerName;
-	String[] keys = new String[] {"Aces","Twos","Threes","Fours","Fives","Sixes","UpperBonus"
-			,"UpperTotal","3-of-a-kind","4-of-a-kind","FullHouse","LowStraight","HighStraight"
-			,"YAHTZEE","Chance","YahtzeeBonus","LowerTotal","GrandTotal"};
-	Hashtable<String, Integer> scoreCard = new Hashtable<String,Integer>();
-	boolean isComplete = false;
-	int numOfYahtzeesScored = 0;
+	private String playerName;
+	private String[] keys = new String[] {"Aces","Twos","Threes","Fours","Fives","Sixes","UpperBonus"
+			,"UpperTotal","3-of-a-kind","4-of-a-kind","FullHouse","SmallStraight","LargeStraight"
+			,"Yahtzee","Chance","YahtzeeBonus","LowerTotal","GrandTotal"};
+	private Hashtable<String, Integer> scoreCard = new Hashtable<String,Integer>();
+	private boolean isComplete = false;
+	private int numOfYahtzeesScored = 0;
 	
 	//ScoreCard constructor. Assigns player name and initializes scoreCard HashMap.
 	public ScoreCard() {
 		for(String a : this.keys) {
-			this.scoreCard.put(a, 0);
+			this.scoreCard.put(a, -1);
 		}
 	}
 	
 	//Getters.
-	public String[] getkeys() {
+	public String[] getKeys() {
 		return this.keys;
 	}
 	
@@ -29,8 +29,16 @@ public class ScoreCard {
 		return this.playerName;
 	}
 	
-	public Hashtable<String, Integer> getscoreCard() {
+	public int getNumOfYahtzeesScored() {
+		return numOfYahtzeesScored;
+	}
+	
+	public Hashtable<String, Integer> getScoreCard() {
 		return this.scoreCard;
+	}
+	
+	public boolean isComplete() {
+		return this.isComplete;
 	}
 	
 	//Setters.
@@ -42,41 +50,25 @@ public class ScoreCard {
 		this.scoreCard.put(k, v);
 	}
 	
-	//printScoreCard function. Returns the non-overridden toString of the score_card Hashtable.
-	public String printScoreCard()	{
-		return this.scoreCard.toString();
-	}
-	
-	public String[] getKeys() {
-		return keys;
-	}
-
 	public void setKeys(String[] keys) {
 		this.keys = keys;
 	}
-
-	public Hashtable<String, Integer> getScoreCard() {
-		return scoreCard;
-	}
-
+	
 	public void setScoreCard(Hashtable<String, Integer> scoreCard) {
 		this.scoreCard = scoreCard;
-	}
-
-	public boolean isComplete() {
-		return isComplete;
 	}
 
 	public void setComplete(boolean isComplete) {
 		this.isComplete = isComplete;
 	}
 
-	public int getNumOfYahtzeesScored() {
-		return numOfYahtzeesScored;
-	}
-
 	public void setNumOfYahtzeesScored(int numOfYahtzeesScored) {
 		this.numOfYahtzeesScored = numOfYahtzeesScored;
+	}
+	
+	//printScoreCard function. Returns the non-overridden toString of the score_card Hashtable.
+	public String printScoreCard()	{
+		return this.scoreCard.toString();
 	}
 
 	//toString method custom override.
