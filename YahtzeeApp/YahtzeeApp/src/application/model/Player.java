@@ -23,6 +23,20 @@ public class Player {
 		
 	}
 	
+	public Dice[] getAllDice() {
+		Dice [] allDice = new Dice[TOTAL_NUM_OF_DICE];
+		int idx = 0;
+		for (int i = 0; i < this.diceCup.size(); i++) {
+			allDice[idx] = this.diceCup.get(i);
+			idx++;
+		}
+		for (int i = 0; i < this.keepers.size(); i++) {
+			allDice[idx] = this.keepers.get(i);
+			idx++;
+		}
+		return allDice;
+	}
+	
 	//keepDice function. Takes an int index which is used to search the player's diceCup ArrayList.
 	//If dice b, at passed index d, is contained within diceCup remove and add dice to keepers ArrayList.
 	public void keepDice(int d) {

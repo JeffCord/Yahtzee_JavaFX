@@ -8,7 +8,7 @@ public class GameplayModel {
 	public GameplayModel() {
 		this.diceImageFilesMap = new HashMap<>();
 		for (int i = 1; i <= 6; i++) {
-			this.diceImageFilesMap.put(i, "dice-" + i + ".png");
+			this.diceImageFilesMap.put(i, "images/dice-" + i + ".png");
 		}
 	}
 	
