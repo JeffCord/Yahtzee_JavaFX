@@ -14,14 +14,20 @@ import application.model.Player;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.VBox;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 
 public class GameplayController implements Initializable {
     @FXML
@@ -739,6 +745,16 @@ public class GameplayController implements Initializable {
     		}
     		scoreCard.put("Yahtzee", score);
     	} else {
+    		Stage popup = new Stage();
+    		VBox options = new VBox(15);
+    		Scene scene = new Scene(options);
+    		popup.initModality(Modality.APPLICATION_MODAL);
+    		options.setAlignment(Pos.CENTER);
+    		options.setPadding(new Insets(20, 0, 20, 0));
+    		options.getChildren().addAll(acesBttn, twosBttn, threesBttn, foursBttn, fivesBttn,
+    				sixesBttn, threeBttn, fourBttn, smallBttn, largeBttn, fullBttn, chanceBttn);
+    		popup.setScene(scene);
+    		
     		// if player has already used their Yahtzee slot
     		// figure out what kind of Yahtzee it is (i.e. all 1's, all 2's, etc.)
     		int score;
@@ -748,7 +764,7 @@ public class GameplayController implements Initializable {
     				scoreCard.put("Aces", score);
     			} else {
     				score = 0;
-    				// TODO player must choose any other open slot EXCEPT Aces
+    				popup.showAndWait();
     			}
     		} else if (sampleDieVal == 2) {
     			if (scoreCard.get("Twos") == -1) {
@@ -756,7 +772,7 @@ public class GameplayController implements Initializable {
     				scoreCard.put("Twos", score);
     			} else {
     				score = 0;
-    				// TODO player must choose any other open slot EXCEPT Twos
+    				popup.showAndWait();
     			}
     		} else if (sampleDieVal == 3) {
     			if (scoreCard.get("Threes") == -1) {
@@ -764,7 +780,7 @@ public class GameplayController implements Initializable {
     				scoreCard.put("Threes", score);
     			} else {
     				score = 0;
-    				// TODO player must choose any other open slot EXCEPT Threes
+    				popup.showAndWait();
     			}
     		} else if (sampleDieVal == 4) {
     			if (scoreCard.get("Fours") == -1) {
@@ -772,7 +788,7 @@ public class GameplayController implements Initializable {
     				scoreCard.put("Fours", score);
     			} else {
     				score = 0;
-    				// TODO player must choose any other open slot EXCEPT Fours
+    				popup.showAndWait();
     			}
     		} else if (sampleDieVal == 5) {
     			if (scoreCard.get("Fives") == -1) {
@@ -780,7 +796,7 @@ public class GameplayController implements Initializable {
     				scoreCard.put("Fives", score);
     			} else {
     				score = 0;
-    				// TODO player must choose any other open slot EXCEPT Fives
+    				popup.showAndWait();
     			}
     		} else {
     			if (scoreCard.get("Sixes") == -1) {
@@ -788,7 +804,7 @@ public class GameplayController implements Initializable {
     				scoreCard.put("Sixes", score);
     			} else {
     				score = 0;
-    				// TODO player must choose any other open slot EXCEPT Sixes
+    				popup.showAndWait();
     			}
     		}
     		this.incrementNumberOfYahtzeesScored(curPlayer);
