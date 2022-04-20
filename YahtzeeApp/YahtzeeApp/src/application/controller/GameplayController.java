@@ -16,20 +16,14 @@ import application.model.Player;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.geometry.Insets;
-import javafx.geometry.Pos;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.VBox;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
-import javafx.stage.Modality;
-import javafx.stage.Stage;
 
 public class GameplayController implements Initializable {
     @FXML
@@ -179,6 +173,8 @@ public class GameplayController implements Initializable {
 	private int [] diceVals = new int[TOTAL_NUM_OF_DICE]; 
 	
 	private GameplayModel gModel;
+	
+	static public boolean inYahtzeeBonus = false;
 	
 	// TODO open pop up score card of current player
     @FXML
@@ -545,6 +541,14 @@ public class GameplayController implements Initializable {
     	Player curPlayer = match.getCurrentPlayer();
     	Hashtable <String, Integer> scoreCard = curPlayer.getScoreCard().getScoreCard();
     	
+    	if (inYahtzeeBonus) {
+    		inYahtzeeBonus = false;
+    		int score = 25;
+        	scoreCard.put("FullHouse", score);
+        	this.playerSelectedCombo("FullHouse", score);
+        	return;
+    	}
+    	
     	// check if they actually have a full house or if they are using this slot
     	// for a scratch (0 pts)
     	HashMap <Integer, Integer> diceMap = new HashMap<>();
@@ -582,6 +586,14 @@ public class GameplayController implements Initializable {
     void largeBttnPressed(ActionEvent event) {
     	Player curPlayer = match.getCurrentPlayer();
     	Hashtable <String, Integer> scoreCard = curPlayer.getScoreCard().getScoreCard();
+    	
+    	if (inYahtzeeBonus) {
+    		inYahtzeeBonus = false;
+    		int score = 30;
+        	scoreCard.put("SmallStraight", score);
+        	this.playerSelectedCombo("SmallStraight", score);
+        	return;
+    	}
     	
     	// check if the current player actually has a large straight
     	int [] sortedDice = Arrays.copyOf(diceVals, TOTAL_NUM_OF_DICE);
@@ -630,6 +642,14 @@ public class GameplayController implements Initializable {
     void smallBttnPressed(ActionEvent event) {
     	Player curPlayer = match.getCurrentPlayer();
     	Hashtable <String, Integer> scoreCard = curPlayer.getScoreCard().getScoreCard();
+    	
+    	if (inYahtzeeBonus) {
+    		inYahtzeeBonus = false;
+    		int score = 30;
+        	scoreCard.put("SmallStraight", score);
+        	this.playerSelectedCombo("SmallStraight", score);
+        	return;
+    	}
     	
     	// check if the current player actually has a small straight
     	int [] sortedDice = Arrays.copyOf(diceVals, TOTAL_NUM_OF_DICE);
@@ -785,27 +805,20 @@ public class GameplayController implements Initializable {
     		scoreCard.put("Yahtzee", score);
     		this.playerSelectedCombo("Yahtzee", score);
     	} else {
-    		Stage popup = new Stage();
-    		VBox options = new VBox(15);
-    		Scene scene = new Scene(options);
-    		popup.initModality(Modality.APPLICATION_MODAL);
-    		options.setAlignment(Pos.CENTER);
-    		options.setPadding(new Insets(20, 0, 20, 0));
-    		options.getChildren().addAll(acesBttn, twosBttn, threesBttn, foursBttn, fivesBttn,
-    				sixesBttn, threeBttn, fourBttn, smallBttn, largeBttn, fullBttn, chanceBttn);
-    		popup.setScene(scene);
+    		
     		
     		// if player has already used their Yahtzee slot
     		// figure out what kind of Yahtzee it is (i.e. all 1's, all 2's, etc.)
-    		int score;
+    		int score = 0;
     		if (sampleDieVal == 1) {
     			if (scoreCard.get("Aces") == -1) {
     				score = 100;
     				scoreCard.put("Aces", score);
     				this.playerSelectedCombo("Aces", score);
     			} else {
-    				score = 0;
-    				popup.showAndWait();
+    				inYahtzeeBonus = true;
+    				YahtzeeBonusController.display(acesBttn, twosBttn, threesBttn, foursBttn, fivesBttn,
+    						sixesBttn, threeBttn, fourBttn, smallBttn, largeBttn, fullBttn, chanceBttn);
     			}
     		} else if (sampleDieVal == 2) {
     			if (scoreCard.get("Twos") == -1) {
@@ -813,8 +826,8 @@ public class GameplayController implements Initializable {
     				scoreCard.put("Twos", score);
     				this.playerSelectedCombo("Twos", score);
     			} else {
-    				score = 0;
-    				popup.showAndWait();
+    				YahtzeeBonusController.display(acesBttn, twosBttn, threesBttn, foursBttn, fivesBttn,
+    						sixesBttn, threeBttn, fourBttn, smallBttn, largeBttn, fullBttn, chanceBttn);
     			}
     		} else if (sampleDieVal == 3) {
     			if (scoreCard.get("Threes") == -1) {
@@ -822,8 +835,8 @@ public class GameplayController implements Initializable {
     				scoreCard.put("Threes", score);
     				this.playerSelectedCombo("Threes", score);
     			} else {
-    				score = 0;
-    				popup.showAndWait();
+    				YahtzeeBonusController.display(acesBttn, twosBttn, threesBttn, foursBttn, fivesBttn,
+    						sixesBttn, threeBttn, fourBttn, smallBttn, largeBttn, fullBttn, chanceBttn);
     			}
     		} else if (sampleDieVal == 4) {
     			if (scoreCard.get("Fours") == -1) {
@@ -831,8 +844,8 @@ public class GameplayController implements Initializable {
     				scoreCard.put("Fours", score);
     				this.playerSelectedCombo("Fours", score);
     			} else {
-    				score = 0;
-    				popup.showAndWait();
+    				YahtzeeBonusController.display(acesBttn, twosBttn, threesBttn, foursBttn, fivesBttn,
+    						sixesBttn, threeBttn, fourBttn, smallBttn, largeBttn, fullBttn, chanceBttn);
     			}
     		} else if (sampleDieVal == 5) {
     			if (scoreCard.get("Fives") == -1) {
@@ -840,8 +853,8 @@ public class GameplayController implements Initializable {
     				scoreCard.put("Fives", score);
     				this.playerSelectedCombo("Fives", score);
     			} else {
-    				score = 0;
-    				popup.showAndWait();
+    				YahtzeeBonusController.display(acesBttn, twosBttn, threesBttn, foursBttn, fivesBttn,
+    						sixesBttn, threeBttn, fourBttn, smallBttn, largeBttn, fullBttn, chanceBttn);
     			}
     		} else {
     			if (scoreCard.get("Sixes") == -1) {
@@ -849,8 +862,8 @@ public class GameplayController implements Initializable {
     				scoreCard.put("Sixes", score);
     				this.playerSelectedCombo("Sixes", score);
     			} else {
-    				score = 0;
-    				popup.showAndWait();
+    				YahtzeeBonusController.display(acesBttn, twosBttn, threesBttn, foursBttn, fivesBttn,
+    						sixesBttn, threeBttn, fourBttn, smallBttn, largeBttn, fullBttn, chanceBttn);
     			}
     		}
     		this.incrementNumberOfYahtzeesScored(curPlayer);
