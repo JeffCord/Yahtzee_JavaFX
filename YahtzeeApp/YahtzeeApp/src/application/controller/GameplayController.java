@@ -1,5 +1,7 @@
 package application.controller;
 
+import java.io.File;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -170,37 +172,18 @@ public class GameplayController implements Initializable {
 	// the amount of rolls the current player has done (max of 3)
 	private int numOfRolls = 0;
 	
+	private int [] rerollKeepMap = {0, 0, 0, 0, 0};
+	
 	// used for after a player is done with their 1-3 rolls;
 	// this array is then populated with the player's final dice values for the current turn
 	private int [] diceVals = new int[TOTAL_NUM_OF_DICE]; 
 	
 	private GameplayModel gModel;
 	
-//	private Image diceImage1;
-//	
-//	private Image diceImage2;
-//	
-//	private Image diceImage3;
-//	
-//	private Image diceImage4;
-//	
-//	private Image diceImage5;
-//	
-//	private Image diceImage6;
-//	
-//	private Image [] diceImages = new Image[6];
-//	
-//	private ImageView [] diceImageViews = new ImageView[5];
-
-// TODO change to next player after current player enters a score
+	// TODO open pop up score card of current player
     @FXML
     void CheckScoreCardBttnPressed(ActionEvent event) {
-
-    }
-    
-    @FXML
-    void goToNextBttnPressed(ActionEvent event) {
-    	this.changeToNextTurn();
+    	ScoreCardController.display(match.getCurrentPlayer());
     }
 
     @FXML
@@ -227,6 +210,16 @@ public class GameplayController implements Initializable {
     void dice5ActionPressed(ActionEvent event) {
 
     }
+    
+    
+    @FXML
+    /**
+     * Changes to the next player
+     * @param event
+     */
+    void goToNextBttnPressed(ActionEvent event) {
+    	this.changeToNextTurn();
+    }
 
     @FXML
     /*
@@ -234,39 +227,59 @@ public class GameplayController implements Initializable {
      */
     void RollBttnPressed(ActionEvent event) {
     	this.numOfRolls++; // increment the number of rolls the current player has done
-    	this.endRollPhaseBttn.setDisable(false); // enable the end turn button after roll button is pressed
-    	
     	Player p = match.getCurrentPlayer();
+    	
+    	
+    	// TODO keep the dice the user does NOT wish to reroll
+    	if (this.dice1KeepRadio.isSelected()) {
+    		this.rerollKeepMap[0] = 1;
+    	} else {
+    		this.rerollKeepMap[0] = 0;
+    	}
+    	if (this.dice2KeepRadio.isSelected()) {
+    		this.rerollKeepMap[1] = 1;
+    	} else {
+    		this.rerollKeepMap[1] = 0;
+    	}
+    	if (this.dice3KeepRadio.isSelected()) {
+    		this.rerollKeepMap[2] = 1;
+    	} else {
+    		this.rerollKeepMap[2] = 0;
+    	}
+    	if (this.dice4KeepRadio.isSelected()) {
+    		this.rerollKeepMap[3] = 1;
+    	} else  {
+    		this.rerollKeepMap[3] = 0;
+    	}
+    	if (this.dice5KeepRadio.isSelected()) {
+    		this.rerollKeepMap[4] = 1;
+    	} else {
+    		this.rerollKeepMap[4] = 0;
+    	}
+    	
+    	this.endRollPhaseBttn.setDisable(false); // enable the end turn button after roll button is pressed
+    	this.diceKeepText.setVisible(true);
+    	this.showDiceImages();
+    	
     	ArrayList<Dice> diceCup = p.getDiceCup(); // get the current player's dice cup (contains dice that will be rolled)
-    	String result = "";
-    	int idx = 0;
+    	// roll each die in the cup
     	for (int i = 0; i < diceCup.size(); i++) {
     		// roll the current die in cup
-    		Dice curDie = diceCup.get(i);
-    		curDie.rollDice();
-    		int curDieVal = curDie.getValue();
-    		
-    		// TODO update image views
-//    		this.diceImageViews[idx].setImage(diceImages[curDieVal - 1]);
-    		idx++;
-    		
-    		result += diceCup.get(i).getValue() + " ";
+    		if (this.rerollKeepMap[i] == 0) {
+	    		Dice curDie = diceCup.get(i);
+	    		curDie.rollDice();
+    		}
     	}
     	
-    	// TODO update image views for dice that were kept
-    	ArrayList<Dice> keepers = p.getKeepers();
-    	for (int i = 0; i < keepers.size(); i++) {
-    		System.out.println("Keepers " + i);
-    		Dice curDie = keepers.get(i);
-    		int curDieVal = curDie.getValue();
-    		
-    		// TODO update image views
-
-    		idx++;
-    		
-    		result += diceCup.get(i).getValue() + " ";
-    	}
-    	System.out.println("DICE: " + result);
+    	// update image views for dice
+    	Dice [] allDice = p.getAllDice();
+    	HashMap <Integer, String> diceImageFilesMap = this.gModel.getDiceMap();
+    	System.out.println("DICE: " + Arrays.toString(allDice));
+    	this.diceImageView1.setImage(new Image(diceImageFilesMap.get(allDice[0].getValue())));
+    	this.diceImageView2.setImage(new Image(diceImageFilesMap.get(allDice[1].getValue())));
+    	this.diceImageView3.setImage(new Image(diceImageFilesMap.get(allDice[2].getValue())));
+    	this.diceImageView4.setImage(new Image(diceImageFilesMap.get(allDice[3].getValue())));
+    	this.diceImageView5.setImage(new Image(diceImageFilesMap.get(allDice[4].getValue())));
     	
     	this.showAllRadioButtons();
     	
@@ -290,6 +303,9 @@ public class GameplayController implements Initializable {
 		this.dice5RerollRadio.setVisible(true);
     }
     
+    /**
+     * Disables the visibility of the radio buttons
+     */
     void hideAllRadioButtons() {
     	this.dice1KeepRadio.setVisible(false);
 		this.dice1RerollRadio.setVisible(false);
@@ -303,6 +319,9 @@ public class GameplayController implements Initializable {
 		this.dice5RerollRadio.setVisible(false);
     }
     
+    /**
+     * Makes all the radio buttons deselected
+     */
     void deselectAllRadioButtons() {
 		this.dice1KeepRadio.setSelected(false);
 		this.dice1RerollRadio.setSelected(false);
@@ -328,7 +347,6 @@ public class GameplayController implements Initializable {
      */
     void endRollPhaseBttnPressed(ActionEvent event) {
     	// if they decide to end their turn before their third roll, disable the roll button
-    	this.rollBttn.setDisable(true); 
     	this.endRollPhase();
     }
     
@@ -337,8 +355,10 @@ public class GameplayController implements Initializable {
      * either by pressing the "End Turn" button, or by rolling 3 times
      */
     public void endRollPhase() {
+    	this.diceKeepText.setVisible(false); // hide dice keep text
     	this.endRollPhaseBttn.setDisable(true); // disable the end turn button
-    	this.hideAllRadioButtons();
+    	this.rollBttn.setDisable(true);  // disable the roll button
+    	this.hideAllRadioButtons(); // hide all radio buttons
     	Player curPlayer = match.getCurrentPlayer();
     	System.out.println("End of " + curPlayer.getPlayerName() + "'s turn");
     	// gather what dice values the player ended up with for their turn
@@ -401,6 +421,22 @@ public class GameplayController implements Initializable {
 		}
 	}
 
+	/**
+	 * Should be called after a player's combo phase ends
+	 * @param comboName
+	 * @param comboScore
+	 */
+    void playerSelectedCombo(String comboName, int comboScore) {
+    	this.disableComboButtons();
+    	this.goToNextBttn.setDisable(false);
+    	this.comboPointsText.setVisible(true);
+    	if (comboScore == 1) {
+    		this.comboPointsText.setText(comboName + "\n" + match.getCurrentPlayer().getPlayerName() + " scored " + comboScore + " point!");
+    	} else {
+    		this.comboPointsText.setText(comboName + "\n" + match.getCurrentPlayer().getPlayerName() + " scored " + comboScore + " points!");
+    	}
+	}
+    
 	@FXML
 	/**
 	 * Adds up all dice with the value of 1
@@ -419,18 +455,6 @@ public class GameplayController implements Initializable {
     	scoreCard.put("Aces", score);
     	this.playerSelectedCombo("Aces", score);
     }
-    
-    void playerSelectedCombo(String comboName, int comboScore) {
-		// TODO 
-    	this.disableComboButtons();
-    	this.goToNextBttn.setDisable(false);
-    	this.comboPointsText.setVisible(true);
-    	if (comboScore == 1) {
-    		this.comboPointsText.setText(comboName + "\n" + match.getCurrentPlayer().getPlayerName() + " scored " + comboScore + " point!");
-    	} else {
-    		this.comboPointsText.setText(comboName + "\n" + match.getCurrentPlayer().getPlayerName() + " scored " + comboScore + " points!");
-    	}
-	}
 
 	@FXML
     /**
@@ -448,6 +472,7 @@ public class GameplayController implements Initializable {
     		}
     	}
     	scoreCard.put("Fives", score);
+    	this.playerSelectedCombo("Fives", score);
     }
 
     @FXML
@@ -479,6 +504,7 @@ public class GameplayController implements Initializable {
     	// they are using this slot as a scratch (for 0 pts)
     	if (!matchFound) {
     		scoreCard.put("4-of-a-kind", 0);
+    		this.playerSelectedCombo("4-of-a-kind", 0);
     		return;
     	}
     	
@@ -488,6 +514,7 @@ public class GameplayController implements Initializable {
     		score += diceVals[i];
     	}
     	scoreCard.put("4-of-a-kind", score);
+    	this.playerSelectedCombo("4-of-a-kind", score);
     }
 
     @FXML
@@ -506,6 +533,7 @@ public class GameplayController implements Initializable {
     		}
     	}
     	scoreCard.put("Fours", score);
+    	this.playerSelectedCombo("Fours", score);
     }
 
     @FXML
@@ -536,12 +564,14 @@ public class GameplayController implements Initializable {
     	
     	if (!matchFound) {
     		scoreCard.put("FullHouse", 0);
+    		this.playerSelectedCombo("FullHouse", 0);
     		return;
     	}
     	
     	// update score
     	int score = 25;
     	scoreCard.put("FullHouse", score);
+    	this.playerSelectedCombo("FullHouse", score);
     }
 
     @FXML
@@ -565,10 +595,12 @@ public class GameplayController implements Initializable {
 	    	// update score
 	    	int score = 40;
 	    	scoreCard.put("LargeStraight", score);
+	    	this.playerSelectedCombo("LargeStraight", score);
 	    	return;
     	} 
     	// else they are using this slot as a scratch for 0 pts
     	scoreCard.put("LargeStraight", 0);
+    	this.playerSelectedCombo("LargeStraight", 0);
     }
 
     @FXML
@@ -587,6 +619,7 @@ public class GameplayController implements Initializable {
     		}
     	}
     	scoreCard.put("Sixes", score);
+    	this.playerSelectedCombo("Sixes", score);
     }
 
     @FXML
@@ -630,10 +663,12 @@ public class GameplayController implements Initializable {
     		// update score
         	int score = 30;
         	scoreCard.put("SmallStraight", score);
+        	this.playerSelectedCombo("SmallStraight", score);
         	return;
     	}
     	// else, they are using this slot as a scratch for 0 pts
     	scoreCard.put("SmallStraight", 0);
+    	this.playerSelectedCombo("SmallStraight", 0);
     }
 
     @FXML
@@ -665,6 +700,7 @@ public class GameplayController implements Initializable {
     	// they are using this slot as a scratch (for 0 pts)
     	if (!matchFound) {
     		scoreCard.put("3-of-a-kind", 0);
+    		this.playerSelectedCombo("3-of-a-kind", 0); 
     		return;
     	}
     	
@@ -674,6 +710,7 @@ public class GameplayController implements Initializable {
     		score += diceVals[i];
     	}
     	scoreCard.put("3-of-a-kind", score);
+    	this.playerSelectedCombo("3-of-a-kind", score);
     }
 
     @FXML
@@ -692,6 +729,7 @@ public class GameplayController implements Initializable {
     		}
     	}
     	scoreCard.put("Threes", score);
+    	this.playerSelectedCombo("Threes", score);
     }
 
     @FXML
@@ -710,6 +748,7 @@ public class GameplayController implements Initializable {
     		}
     	}
     	scoreCard.put("Twos", score);
+    	this.playerSelectedCombo("Twos", score);
     }
 
     @FXML
@@ -744,6 +783,7 @@ public class GameplayController implements Initializable {
     			score = 0; // a zero here will prohibit the player from scoring any yahtzee bonuses
     		}
     		scoreCard.put("Yahtzee", score);
+    		this.playerSelectedCombo("Yahtzee", score);
     	} else {
     		Stage popup = new Stage();
     		VBox options = new VBox(15);
@@ -762,6 +802,7 @@ public class GameplayController implements Initializable {
     			if (scoreCard.get("Aces") == -1) {
     				score = 100;
     				scoreCard.put("Aces", score);
+    				this.playerSelectedCombo("Aces", score);
     			} else {
     				score = 0;
     				popup.showAndWait();
@@ -770,6 +811,7 @@ public class GameplayController implements Initializable {
     			if (scoreCard.get("Twos") == -1) {
     				score = 100;
     				scoreCard.put("Twos", score);
+    				this.playerSelectedCombo("Twos", score);
     			} else {
     				score = 0;
     				popup.showAndWait();
@@ -778,6 +820,7 @@ public class GameplayController implements Initializable {
     			if (scoreCard.get("Threes") == -1) {
     				score = 100;
     				scoreCard.put("Threes", score);
+    				this.playerSelectedCombo("Threes", score);
     			} else {
     				score = 0;
     				popup.showAndWait();
@@ -786,6 +829,7 @@ public class GameplayController implements Initializable {
     			if (scoreCard.get("Fours") == -1) {
     				score = 100;
     				scoreCard.put("Fours", score);
+    				this.playerSelectedCombo("Fours", score);
     			} else {
     				score = 0;
     				popup.showAndWait();
@@ -794,6 +838,7 @@ public class GameplayController implements Initializable {
     			if (scoreCard.get("Fives") == -1) {
     				score = 100;
     				scoreCard.put("Fives", score);
+    				this.playerSelectedCombo("Fives", score);
     			} else {
     				score = 0;
     				popup.showAndWait();
@@ -802,6 +847,7 @@ public class GameplayController implements Initializable {
     			if (scoreCard.get("Sixes") == -1) {
     				score = 100;
     				scoreCard.put("Sixes", score);
+    				this.playerSelectedCombo("Sixes", score);
     			} else {
     				score = 0;
     				popup.showAndWait();
@@ -835,6 +881,7 @@ public class GameplayController implements Initializable {
     		score += diceVals[i];
     	}
     	scoreCard.put("Chance", score);
+    	this.playerSelectedCombo("Chance", score);
     }
 	
 	public int[] getDiceVals() {
@@ -1033,44 +1080,8 @@ public class GameplayController implements Initializable {
 //		}
 //	}
 	
-	@Override
-	public void initialize(URL arg0, ResourceBundle arg1) {
-//		// set up array for dice images
-//		diceImage1 = new Image("src/dice-1.png");
-//		diceImage2 = new Image("src/dice-2.png");
-//		diceImage3 = new Image("src/dice-3.png");
-//		diceImage4 = new Image("src/dice-4.png");
-//		diceImage5 = new Image("src/dice-5.png");
-//		diceImage6 = new Image("src/dice-6.png");
-//		this.diceImages[0] = diceImage1;
-//		this.diceImages[1] = diceImage2;
-//		this.diceImages[2] = diceImage3;
-//		this.diceImages[3] = diceImage4;
-//		this.diceImages[4] = diceImage5;
-//		this.diceImages[5] = diceImage6;
-//		
-//		// set up array for dice image views
-//		this.diceImageViews[0] = diceImageView1;
-//		this.diceImageViews[1] = diceImageView2;
-//		this.diceImageViews[2] = diceImageView3;
-//		this.diceImageViews[3] = diceImageView4;
-//		this.diceImageViews[4] = diceImageView5;
-		
-		this.gamePlayPanel.setStyle("-fx-background-color: #FF0000");
-		this.gModel = new GameplayModel();
-		
-		// set up text boxes
-		this.currentPlayerName.setText(match.getCurrentPlayer().getPlayerName());
-		this.comboPointsText.setVisible(false);
-		this.diceKeepText.setVisible(false);
-		
-		// disable all lower buttons except ROLL button
-		this.resetButtonsForNextPlayer();
-		
-	}
-	
 	public void changeToNextTurn() {
-		System.out.println(match.getCurrentPlayer().getScoreCard().toString());
+		//System.out.println(match.getCurrentPlayer().getScoreCard().toString());
 		
 		// change the player to the next one in the roster
 		match.nextTurn();
@@ -1080,6 +1091,9 @@ public class GameplayController implements Initializable {
 		this.comboPointsText.setVisible(false);
 		this.diceKeepText.setVisible(false);
 		
+		// hide dice images
+		this.hideDiceImages();
+		
 		// set up buttons
 		this.resetButtonsForNextPlayer();
 	}
@@ -1087,6 +1101,8 @@ public class GameplayController implements Initializable {
 	public void resetButtonsForNextPlayer() {
 		// remove toggles for each die
 		this.hideAllRadioButtons();
+		// reset toggles for each die
+		this.setAllRadioButtonsToReroll();
 		
 		// enable roll button
 		this.rollBttn.setDisable(false);
@@ -1111,5 +1127,50 @@ public class GameplayController implements Initializable {
 		this.foursBttn.setDisable(true);
 		this.fivesBttn.setDisable(true);
 		this.sixesBttn.setDisable(true);
+	}
+	
+	void hideDiceImages() {
+		this.diceImageView1.setVisible(false);
+		this.diceImageView2.setVisible(false);
+		this.diceImageView3.setVisible(false);
+		this.diceImageView4.setVisible(false);
+		this.diceImageView5.setVisible(false);
+	}
+	
+	void showDiceImages() {
+		this.diceImageView1.setVisible(true);
+		this.diceImageView2.setVisible(true);
+		this.diceImageView3.setVisible(true);
+		this.diceImageView4.setVisible(true);
+		this.diceImageView5.setVisible(true);
+	}
+	
+	void setAllRadioButtonsToReroll() {
+		this.dice1KeepRadio.setSelected(false);
+		this.dice2KeepRadio.setSelected(false);
+		this.dice3KeepRadio.setSelected(false);
+		this.dice4KeepRadio.setSelected(false);
+		this.dice5KeepRadio.setSelected(false);
+		
+		this.dice1RerollRadio.setSelected(true);
+		this.dice2RerollRadio.setSelected(true);
+		this.dice3RerollRadio.setSelected(true);
+		this.dice4RerollRadio.setSelected(true);
+		this.dice5RerollRadio.setSelected(true);
+	}
+	
+	@Override
+	public void initialize(URL arg0, ResourceBundle arg1) {
+		this.gModel = new GameplayModel();
+		
+		this.hideDiceImages();
+		
+		// set up text boxes
+		this.currentPlayerName.setText(match.getCurrentPlayer().getPlayerName());
+		this.comboPointsText.setVisible(false);
+		this.diceKeepText.setVisible(false);
+		
+		// disable all lower buttons except ROLL button
+		this.resetButtonsForNextPlayer();
 	}
 }
