@@ -1,6 +1,12 @@
 package application.model;
 
+import java.io.BufferedReader;	
+import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Hashtable;
 
 public class Match {
 
@@ -106,6 +112,116 @@ public class Match {
 		catch(Exception e) {System.out.println("\nError: player index out of bounds for players ArrayList");}
 	}
 	
+	
+	//saveMatch function. Writes all match information to a text file.
+	//Each player has their own line in the text file which holds their name and score card values.
+	public void saveMatch(Match m) {
+		try {
+			File saveFile = new File("../Yahtzee/saveGame.txt");
+			FileWriter myWriter = new FileWriter(saveFile);
+			
+			//Hard write simple match variables to beginning of text file.
+			//Each is contained on its own line.
+			myWriter.write(String.valueOf(this.playerCount)+'\n');
+			myWriter.write(String.valueOf(this.turnNumber)+'\n');
+			myWriter.write(String.valueOf(this.turnCounter)+'\n');
+			myWriter.write(String.valueOf(this.roundNumber)+'\n');
+			myWriter.write(this.currentPlayer.getPlayerName()+'\n');
+			
+			//For every player in the match's "players" array list.
+			//Gather their score card & keys. Write name to file followed by score card values.
+			for(Player p : this.players) {
+				Hashtable<String, Integer> sc = p.getScoreCard().getScoreCard();
+				String[] k = p.getScoreCard().getKeys();
+				
+				//Write player name as start of line.
+				myWriter.write(p.getPlayerName()+';');
+				
+				//For every string in "keys" write score card value to text file.
+				for(String a : k) {
+					//If we're on the last score card value, don't add a field separator to end of line.
+					if (a==k[k.length-1]) {
+						myWriter.write(String.valueOf(sc.get(a)));
+						break;
+					}
+					myWriter.write(String.valueOf(sc.get(a))+';');
+				}
+				//End each player line with a newline.
+				myWriter.write('\n');
+			}
+			//Remember to close file writer because I'm not a scrub.
+			myWriter.close();
+
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+	}
+	
+	//loadMatch function. Takes in a file path/name and outputs a corresponding match object.
+	//Each line from the file is read and its contents applied to the appropriate match variable.
+	//All players are added along with their score card information within save file.
+	public Match loadMatch(String a) throws IOException {
+			
+			//Initialization of important tools.
+			BufferedReader br = new BufferedReader(new FileReader(a));
+			String holder;
+			
+			//Read first line which holds number of players. Load into new Match instance to be returned.
+			holder=br.readLine();
+			Match m = new Match(Integer.parseInt(holder));
+			
+			//Read next line for turn number. Load into Match "m".
+			holder=br.readLine();
+			m.setTurnNumber(Integer.parseInt(holder));
+			
+			//Read next line for turn counter. Load into Match "m".
+			holder=br.readLine();
+			m.setTurnCounter(Integer.parseInt(holder));
+			
+			//Read next line for round number. Load into Match "m".
+			holder=br.readLine();
+			m.setRoundNumber(Integer.parseInt(holder));
+			
+			//Read next line for current player. Hold onto name for later use.
+			holder=br.readLine();
+			String currP = holder;
+			
+			//Read remaining lines with player & score card information.
+			while ((holder=br.readLine()) != null) {
+				//Split line into fields.
+				String[] parts = holder.split(";");
+				
+				//Create new player object to be initialized.
+				//Use first index of parts to input player name.
+				Player p = new Player(parts[0]);
+				
+				//Create/gather necessary tools to populate player score card.
+				ScoreCard c = new ScoreCard();
+				String[] k = p.getScoreCard().getKeys();
+				int i = 1;
+				
+				//For every score card value, fill value with next index of parts.
+				for(String key : k) {
+					c.setScore(key, Integer.parseInt(parts[i]));
+					i++;
+				}
+				//Set player score card to equal filled score card & add player to match array list.
+				p.setScoreCard(c);
+				m.addPlayer(p);
+				
+				//If current player's name equals loading match's current player, set player as current player.
+				if(p.getPlayerName().equals(currP)) {
+					m.setCurrentPlayer(p);
+				}
+			}
+			
+			//Close buffered reader and return match object.
+			br.close();
+			return m;
+	}
+	
+	
 	//Getters.
 	public Player getCurrentPlayer() {
 		return this.currentPlayer;
@@ -142,7 +258,7 @@ public class Match {
 	//toString method. Prints each player in players Array List.
 	@Override
 	public String toString() {
-		String x = "\nMatch: \nCurrentTurn: "+this.turnCounter+"\nCurrentPlayer: "+this.getCurrentPlayer().getPlayerName()+"\nPlayers: "+this.playerCount;
+		String x = "\nMatch: \nCurrentRound: "+this.roundNumber+"\nCurrentTurn: "+this.turnCounter+"\nCurrentPlayer: "+this.getCurrentPlayer().getPlayerName()+"\nTotalPlayers: "+this.playerCount;
 		for(Player play : this.players) {
 			x = x+"\t"+play.toString()+"\n";
 		}
