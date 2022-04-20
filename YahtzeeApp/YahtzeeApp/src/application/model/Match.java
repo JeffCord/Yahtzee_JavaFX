@@ -100,10 +100,38 @@ public class Match {
 //				this.turnCounter++;
 //			}
 			this.turnNumber = (this.turnNumber + 1) % this.playerCount; // wraps around back to zero when needed
+			if (this.turnNumber == 0) {
+				this.roundNumber++;
+				if (this.roundNumber == 13) {
+					this.endGame();
+					return;
+				}
+			} 		
 			this.setCurrentPlayer(this.players.get(this.turnNumber));
 			this.turnCounter++;
 		}
 		catch(Exception e) {System.out.println("\nError: player index out of bounds for players ArrayList");}
+	}
+	
+	public void endGame() {
+		System.out.println("GAME OVER");
+		// calculate each player's final score
+		this.determineWinner();
+		// TODO 
+		
+	}
+	
+	public void determineWinner() {
+		int bestScore = -1;
+		winner = null;
+		for (int i = 0; i < this.players.size(); i++) {
+			int curTotal = this.players.get(i).getPlayerFinalScore();
+			if (curTotal > bestScore) {
+				bestScore = curTotal;
+				winner = this.players.get(i);
+			}
+		}
+		System.out.println("WINNER: " + winner.getPlayerName());
 	}
 	
 	//Getters.

@@ -101,7 +101,6 @@ public class Player {
 	//getPlayerFinalScore function. Returns the player's final score.
 	public int getPlayerFinalScore() {
 		int totalScore = scoreCard.getTotalScore();
-		
 		return totalScore;
 	}
 	

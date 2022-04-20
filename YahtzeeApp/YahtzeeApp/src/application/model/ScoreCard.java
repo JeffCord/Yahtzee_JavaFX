@@ -43,12 +43,22 @@ public class ScoreCard {
 	
 	//returns total value/score of scoreCard (used to find a player's final score)
 	public int getTotalScore() {
-		int total = 0;
+		int upperTotal = scoreCard.get("Aces") + scoreCard.get("Twos") + scoreCard.get("Threes") + 
+				scoreCard.get("Fours") + scoreCard.get("Fives") + scoreCard.get("Sixes");
 		
-		for(String k : this.keys) {
-			total += scoreCard.get(k);
+		if (upperTotal > 63) {
+			int upperBonus = 35;
+			upperTotal += upperBonus;
 		}
+		scoreCard.put("UpperTotal", upperTotal);
 		
+		int lowerTotal = scoreCard.get("3-of-a-kind") + scoreCard.get("4-of-a-kind") + 
+				scoreCard.get("FullHouse") + scoreCard.get("SmallStraight") + 
+				scoreCard.get("LargeStraight") + scoreCard.get("Chance") + scoreCard.get("Yahtzee");
+		scoreCard.put("LowerTotal", lowerTotal);
+		
+		int total = upperTotal + lowerTotal;
+		scoreCard.put("GrandTotal", total);
 		return total;
 	}
 	
