@@ -711,11 +711,7 @@ public class GameplayController implements Initializable {
         	return;
     	}
     	
-//    	// check if the current player actually has a small straight
-//    	int [] sortedDice = Arrays.copyOf(diceVals, TOTAL_NUM_OF_DICE);
-//    	Arrays.sort(sortedDice);
-    	
-    	// TODO
+    	// check if player does indeed have a small straight
     	HashSet <Integer> diceValsSet = new HashSet<>();
     	for (int i = 0; i < diceVals.length; i++) {
     		diceValsSet.add(diceVals[i]);
