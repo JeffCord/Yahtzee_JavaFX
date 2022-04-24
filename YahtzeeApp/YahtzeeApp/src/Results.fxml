@@ -5,14 +5,14 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controller.ResultsController">
+<AnchorPane fx:id="mainAnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controller.ResultsController">
    <children>
       <Label layoutX="222.0" layoutY="113.0" text="Results" AnchorPane.topAnchor="90.0">
          <font>
             <Font size="50.0" />
          </font>
       </Label>
-      <Label fx:id="congratsLabel" layoutX="198.0" layoutY="163.0" text="Congratulations X!">
+      <Label fx:id="congratsLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="203.0" layoutY="163.0" text="Congratulations X!">
          <font>
             <Font size="25.0" />
          </font>

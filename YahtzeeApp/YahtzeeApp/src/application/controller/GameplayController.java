@@ -6,6 +6,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Hashtable;
 import java.util.ResourceBundle;
 
@@ -710,35 +711,23 @@ public class GameplayController implements Initializable {
         	return;
     	}
     	
-    	// check if the current player actually has a small straight
-    	int [] sortedDice = Arrays.copyOf(diceVals, TOTAL_NUM_OF_DICE);
-    	Arrays.sort(sortedDice);
+//    	// check if the current player actually has a small straight
+//    	int [] sortedDice = Arrays.copyOf(diceVals, TOTAL_NUM_OF_DICE);
+//    	Arrays.sort(sortedDice);
     	
-    	// check if first four dice are in consecutive, numerical order
-    	boolean isLoStraight = true;
-    	int prev = sortedDice[0];
-    	for (int i = 1; i < sortedDice.length - 1; i++) {
-    		int cur = sortedDice[i];
-    		if (prev + 1 != cur) {
-    			isLoStraight = false;
-    			break;
-    		}
-    		prev = cur;
+    	// TODO
+    	HashSet <Integer> diceValsSet = new HashSet<>();
+    	for (int i = 0; i < diceVals.length; i++) {
+    		diceValsSet.add(diceVals[i]);
     	}
     	
-    	// check if last four dice are in consecutive, numerical order
-    	boolean isHiStraight = true;
-    	prev = sortedDice[1];
-    	for (int i = 2; i < sortedDice.length; i++) {
-    		int cur = sortedDice[i];
-    		if (prev + 1 != cur) {
-    			isHiStraight = false;
-    			break;
-    		}
-    		prev = cur;
-    	}
+    	// check for all three possible small straights
+    	boolean straight1 = diceValsSet.contains(1) && diceValsSet.contains(2) && diceValsSet.contains(3) && diceValsSet.contains(4);
+    	boolean straight2 = diceValsSet.contains(2) && diceValsSet.contains(3) && diceValsSet.contains(4) && diceValsSet.contains(5);
+    	boolean straight3 = diceValsSet.contains(3) && diceValsSet.contains(4) && diceValsSet.contains(5) && diceValsSet.contains(6);
     	
-    	if (isLoStraight || isHiStraight) {
+    	// if they do indeed have a small straight
+    	if (straight1 || straight2 || straight3) {
     		// update score
         	int score = 30;
         	scoreCard.put("SmallStraight", score);
