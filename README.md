@@ -1,7 +1,7 @@
 # Yahtzee_JavaFX
 
 
-Team Name:
+Team Name: The Code-Runners
 
 Team Members: Nicholas Ray, Charlie Alvarado, Sabrina Ramon, Lauryn Hernandez, Jeffrey Cordes
 
