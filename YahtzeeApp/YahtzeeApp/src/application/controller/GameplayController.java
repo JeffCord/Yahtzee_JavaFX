@@ -986,7 +986,6 @@ public class GameplayController implements Initializable {
 //		this.diceImageViews[3] = diceImageView4;
 //		this.diceImageViews[4] = diceImageView5;
 		
-		this.gamePlayPanel.setStyle("-fx-background-color: #FF0000");
 		this.gModel = new GameplayModel();
 		
 		// set up text boxes

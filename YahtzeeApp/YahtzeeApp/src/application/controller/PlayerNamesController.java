@@ -117,7 +117,6 @@ public class PlayerNamesController implements Initializable {
     
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		this.mainAnchorPane.setStyle("-fx-background-color: #FF0000");
 		setPromptLabelText();
 		this.startGameBtn.setVisible(false);
 		this.warningLabel.setVisible(false);
