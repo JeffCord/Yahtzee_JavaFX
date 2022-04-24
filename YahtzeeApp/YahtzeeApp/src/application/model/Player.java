@@ -2,6 +2,13 @@ package application.model;
 
 import java.util.ArrayList;
 
+/**
+ * This class handles the player object for a game of Yahtzee
+ * 
+ * @author Nicholas Ray (gmm408)
+ * UTSA CS 3443 - Group Project
+ * Spring 2022
+ */
 public class Player {
 	
 	//Initialization of important variables.

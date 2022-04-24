@@ -12,7 +12,20 @@ import application.model.Player;
 import application.model.ScoreCard;
 import javafx.geometry.*;
 
+/**
+ * This class handles the score card pop-up during gameplay
+ * 
+ * @author Jeffrey Cordes (vkn217)
+ * UTSA CS 3443 - Group Project
+ * Spring 2022
+ */
+
 public class ScoreCardController {
+	/**
+	 * Displays the score card pop-up for the given player
+	 * 
+	 * @param p
+	 */
 	public static void display (Player p) {
 		Stage window = new Stage();
 		window.initModality(Modality.APPLICATION_MODAL); // block interaction with other windows

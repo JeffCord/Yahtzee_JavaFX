@@ -2,6 +2,13 @@ package application.model;
 
 import java.util.Hashtable;
 
+/**
+ * This class handles the score card object for yahtzee
+ * 
+ * @author Nicholas Ray (gmm408)
+ * UTSA CS 3443 - Group Project
+ * Spring 2022
+ */
 public class ScoreCard {
 	
 	//Initialization of important variables.
@@ -13,7 +20,9 @@ public class ScoreCard {
 	private boolean isComplete = false;
 	private int numOfYahtzeesScored = 0;
 	
-	//ScoreCard constructor. Assigns player name and initializes scoreCard HashMap.
+	/**
+	 * ScoreCard constructor. Assigns player name and initializes scoreCard HashMap.
+	 */
 	public ScoreCard() {
 		for(String a : this.keys) {
 			this.scoreCard.put(a, -1);
@@ -21,27 +30,50 @@ public class ScoreCard {
 	}
 	
 	//Getters.
+	/**
+	 * gets the keys 
+	 * @return
+	 */
 	public String[] getKeys() {
 		return this.keys;
 	}
 	
+	/**
+	 * gets the player name
+	 * @return
+	 */
 	public String getPlayerName() {
 		return this.playerName;
 	}
 	
+	/**
+	 * gets the number of yahtzees scored by the player
+	 * @return
+	 */
 	public int getNumOfYahtzeesScored() {
 		return numOfYahtzeesScored;
 	}
 	
+	/**
+	 * gets the score card in hashtable form
+	 * @return
+	 */
 	public Hashtable<String, Integer> getScoreCard() {
 		return this.scoreCard;
 	}
 	
+	/**
+	 * returns true if the score card is full
+	 * @return
+	 */
 	public boolean isComplete() {
 		return this.isComplete;
 	}
 	
-	//returns total value/score of scoreCard (used to find a player's final score)
+	/**
+	 * returns total value/score of scoreCard (used to find a player's final score)
+	 * @return
+	 */
 	public int getTotalScore() {
 		int upperTotal = scoreCard.get("Aces") + scoreCard.get("Twos") + scoreCard.get("Threes") + 
 				scoreCard.get("Fours") + scoreCard.get("Fives") + scoreCard.get("Sixes");
@@ -63,38 +95,70 @@ public class ScoreCard {
 	}
 	
 	//Setters.
+	/**
+	 * sets the player name
+	 * @param n
+	 */
 	public void setPlayerName(String n) {
 		this.playerName = n;
 	}
 	
+	/**
+	 * sets the score of a category
+	 * @param k
+	 * @param v
+	 */
 	public void setScore(String k, int v) {
 		this.scoreCard.put(k, v);
 	}
 	
+	/**
+	 * sets the keys
+	 * @param keys
+	 */
 	public void setKeys(String[] keys) {
 		this.keys = keys;
 	}
 	
+	/**
+	 * sets the score card
+	 * @param scoreCard
+	 */
 	public void setScoreCard(Hashtable<String, Integer> scoreCard) {
 		this.scoreCard = scoreCard;
 	}
 
+	/**
+	 * sets the completion boolean
+	 * @param isComplete
+	 */
 	public void setComplete(boolean isComplete) {
 		this.isComplete = isComplete;
 	}
 
+	/**
+	 * sets the number of yahtzees scored
+	 * @param numOfYahtzeesScored
+	 */
 	public void setNumOfYahtzeesScored(int numOfYahtzeesScored) {
 		this.numOfYahtzeesScored = numOfYahtzeesScored;
 	}
 	
-	//printScoreCard function. Returns the non-overridden toString of the score_card Hashtable.
+	/**
+	 * printScoreCard function. Returns the non-overridden toString of the score_card Hashtable.
+	 * @return
+	 */
 	public String printScoreCard()	{
 		return this.scoreCard.toString();
 	}
 
-	//toString method custom override.
-	//Iterate through key String array and print out values within scoreCard Hashtable.
+	
 	@Override
+	/**
+	 * toString method custom override.
+	 * Iterate through key String array and print out values within scoreCard Hashtable.
+	 * @return
+	 */
 	public String toString() {
 		String x="\n"+this.playerName+"'s ScoreCard:";
 		for(String a : this.keys) {

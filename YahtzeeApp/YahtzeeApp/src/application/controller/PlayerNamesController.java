@@ -18,6 +18,13 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
+/**
+ * This class is the controller for selecting the players' names
+ * 
+ * @author Jeffrey Cordes (vkn217)
+ * UTSA CS 3443 - Group Project
+ * Spring 2022
+ */
 public class PlayerNamesController implements Initializable {
 	
 	@FXML
@@ -44,6 +51,10 @@ public class PlayerNamesController implements Initializable {
     private Button startGameBtn;
 
     @FXML
+    /**
+     * handler for the start button
+     * @param event
+     */
     void startGameBtnPressed(MouseEvent event) {
     	try {
 	    	URL url = new File("src/Gameplay.fxml").toURI().toURL(); // get the fxml file
@@ -58,6 +69,10 @@ public class PlayerNamesController implements Initializable {
     }
     
     @FXML
+    /**
+     * handler for the back button
+     * @param event
+     */
     void backBtnPressed(MouseEvent event) {
     	try {
 	    	URL url = new File("src/Main.fxml").toURI().toURL(); // get the fxml file
@@ -72,6 +87,11 @@ public class PlayerNamesController implements Initializable {
     }
 
     @FXML
+    /**
+     * handler for the confirmation button
+     * 
+     * @param event
+     */
     void confirmNameBtnPressed(MouseEvent event) {
     	String desiredName = this.nameTextField.getText().trim();
     	// check if name input is empty
@@ -106,16 +126,25 @@ public class PlayerNamesController implements Initializable {
     	}
     }
     
+    /**
+     * increments the player number
+     */
     public void incremementPlayerNumber() {
     	this.curPlayerNumber++;
     	this.setPromptLabelText();
     }
 
+    /**
+     * sets the prompt label text
+     */
     public void setPromptLabelText() {
     	this.promptLabel.setText("Player " + this.curPlayerNumber + ", please enter your name");
     }
     
 	@Override
+	/**
+	 * the initialize method
+	 */
 	public void initialize(URL location, ResourceBundle resources) {
 		this.mainAnchorPane.setStyle("-fx-background-color: #FF0000");
 		setPromptLabelText();

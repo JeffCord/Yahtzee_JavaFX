@@ -17,6 +17,13 @@ import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.ChoiceBox;
 
+/**
+ * This class is the controller for selecting the amount of players
+ * 
+ * @author Jeffrey Cordes (vkn217)
+ * UTSA CS 3443 - Group Project
+ * Spring 2022
+ */
 public class PlayerSelectController implements Initializable {
 	
 	static final int MAX_NUM_OF_PLAYERS = 10; // this is just a temp amount
@@ -34,8 +41,11 @@ public class PlayerSelectController implements Initializable {
     private ChoiceBox<Integer> playerNumChoiceBox;
     
     @FXML
+    /**
+     * handler for main menu button
+     * @param event
+     */
     void backToMainBtnPressed(ActionEvent event) {
-//    	System.out.println("Back to Main pressed");
     	try {
 	    	URL url = new File("src/Main.fxml").toURI().toURL(); // get the fxml file
 			mainAnchorPane = FXMLLoader.load(url); // load the new pane
@@ -49,6 +59,10 @@ public class PlayerSelectController implements Initializable {
     }
 
     @FXML
+    /**
+     * handler for confirmation button
+     * @param event
+     */
     void confirmBtnPressed(ActionEvent event) {
     	Integer numDesired = this.playerNumChoiceBox.getValue();
     	if (numDesired == null) {
@@ -71,6 +85,11 @@ public class PlayerSelectController implements Initializable {
     }
     
 	@Override
+	/**
+	 * the initialize method
+	 * @param location
+	 * @param resources
+	 */
 	public void initialize(URL location, ResourceBundle resources) {
 		this.mainAnchorPane.setStyle("-fx-background-color: #FF0000");
 		for (int i = 1; i <= MAX_NUM_OF_PLAYERS; i++) {
