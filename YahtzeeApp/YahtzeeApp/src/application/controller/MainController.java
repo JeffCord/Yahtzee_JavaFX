@@ -17,6 +17,14 @@ import javafx.stage.Stage;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 
+/**
+ * This class is the controller for the main menu
+ * 
+ * @author Jeffrey Cordes (vkn217), Lauryn Hernandez (bsa858)
+ * UTSA CS 3443 - Group Project
+ * Spring 2022
+ */
+
 public class MainController implements Initializable {
 
 	@FXML
@@ -32,13 +40,20 @@ public class MainController implements Initializable {
     private Button quitBtn;
 
     @FXML
+    /** 
+     * event handler for load game button
+     * @param event
+     */
     void loadBtnPressed(ActionEvent event) {
-    	System.out.println("Load");
+//    	System.out.println("Load");
     }
 
     @FXML
+    /**
+     * event handler for new game button
+     * @param event
+     */
     void newGameBtnPressed(ActionEvent event) {
-    	System.out.println("New");
     	try {
 	    	URL url = new File("src/PlayerSelect.fxml").toURI().toURL(); // get the fxml file
 			mainAnchorPane = FXMLLoader.load(url); // load the new pane
@@ -49,16 +64,24 @@ public class MainController implements Initializable {
     	} catch (IOException e) {
     		System.out.println("ERROR: could not find PlayerSelect.fxml file");
     	}
-
     }
 
     @FXML
+    /**
+     * handler for quit button
+     * @param event
+     */
     void quitBtnPressed(ActionEvent event) {
     	System.out.println("Quit");
     	Platform.exit();
     }
 
 	@Override
+	/**
+	 * initialize method
+	 * @param arg0
+	 * @param arg1
+	 */
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		this.mainAnchorPane.setStyle("-fx-background-color: #FF0000");
 	}

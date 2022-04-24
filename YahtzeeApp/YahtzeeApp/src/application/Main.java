@@ -9,7 +9,15 @@ import javafx.stage.Stage;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 
-
+/**
+ * This application mimics the classic tabletop game, Yahtzee
+ * 
+ * @author Nicholas Ray (gmm408), Charlie Alvarado (dna084), Sabrina Ramon (mfq836), 
+ * Lauryn Hernandez (bsa858), Jeffrey Cordes (vkn217)
+ *
+ * UTSA CS 3443 - Group Project
+ * Spring 2022
+ */
 public class Main extends Application {
 	@Override
 	public void start(Stage primaryStage) {

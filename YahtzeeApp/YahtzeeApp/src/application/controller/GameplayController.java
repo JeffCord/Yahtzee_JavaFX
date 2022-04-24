@@ -1,7 +1,7 @@
 package application.controller;
 
 import java.io.File;
-import java.net.MalformedURLException;
+import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -15,7 +15,10 @@ import application.model.Match;
 import application.model.Player;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.ToggleGroup;
@@ -24,6 +27,15 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
+import javafx.stage.Stage;
+
+/**
+ * This class handles the gameplay logic for yahtzee
+ * 
+ * @author Jeffrey Cordes (vkn217), Sabrina Ramon (mfq836)
+ * UTSA CS 3443 - Group Project
+ * Spring 2022
+ */
 
 public class GameplayController implements Initializable {
     @FXML
@@ -176,33 +188,58 @@ public class GameplayController implements Initializable {
 	
 	static public boolean inYahtzeeBonus = false;
 	
-	// TODO open pop up score card of current player
+	static public boolean gameOver = false;
+	
     @FXML
+    /**
+     * handler for the score card button
+     * @param event
+     */
     void CheckScoreCardBttnPressed(ActionEvent event) {
     	ScoreCardController.display(match.getCurrentPlayer());
     }
 
     @FXML
+    /**
+     * handler for dice 1 button
+     * @param event
+     */
     void dice1ActionPressed(ActionEvent event) {
 
     }
 
     @FXML
+    /**
+     * handler for dice 2 button
+     * @param event
+     */
     void dice2ActionPressed(ActionEvent event) {
 
     }
 
     @FXML
+    /**
+     * handler for dice 3 button
+     * @param event
+     */
     void dice3ActionPressed(ActionEvent event) {
 
     }
 
     @FXML
+    /**
+     * handler for dice 4 button
+     * @param event
+     */
     void dice4ActionPressed(ActionEvent event) {
 
     }
 
     @FXML
+    /**
+     * handler for dice 5 button
+     * @param event
+     */
     void dice5ActionPressed(ActionEvent event) {
 
     }
@@ -215,18 +252,33 @@ public class GameplayController implements Initializable {
      */
     void goToNextBttnPressed(ActionEvent event) {
     	this.changeToNextTurn();
+    	// if game ends, switch to results menu
+    	if (gameOver) {
+    		gameOver = false;
+			try {
+		    	URL url = new File("src/Results.fxml").toURI().toURL(); // get the fxml file
+				gamePlayPanel = FXMLLoader.load(url); // load the new pane
+		    	Scene scene = new Scene(gamePlayPanel); // set the new scene
+		    	Stage window = (Stage) ((Node)event.getSource()).getScene().getWindow(); // set the new stage
+		    	window.setScene(scene); // place new stage on new stage
+		    	window.show(); // display the new stage
+	    	} catch (IOException e) {
+	    		System.out.println("ERROR: could not find Results.fxml file");
+	    	}
+    	}
     }
 
     @FXML
-    /*
+    /**
      * roll each die in the current player's dice cup
+     * @param event
      */
     void RollBttnPressed(ActionEvent event) {
     	this.numOfRolls++; // increment the number of rolls the current player has done
     	Player p = match.getCurrentPlayer();
     	
     	
-    	// TODO keep the dice the user does NOT wish to reroll
+    	// keep the dice the user does NOT wish to reroll
     	if (this.dice1KeepRadio.isSelected()) {
     		this.rerollKeepMap[0] = 1;
     	} else {
@@ -286,6 +338,9 @@ public class GameplayController implements Initializable {
     	}
     }
     
+    /**
+     * show all radio buttons
+     */
     void showAllRadioButtons() {
     	this.dice1KeepRadio.setVisible(true);
 		this.dice1RerollRadio.setVisible(true);
@@ -332,6 +387,10 @@ public class GameplayController implements Initializable {
     }
 
     @FXML
+    /**
+     * Handler for save and exit button
+     * @param event
+     */
     void SaveExitBttnPressed(ActionEvent event) {
 
     }
@@ -760,7 +819,7 @@ public class GameplayController implements Initializable {
     void twosBttnPressed(ActionEvent event) {
     	Player curPlayer = match.getCurrentPlayer();
     	Hashtable <String, Integer> scoreCard = curPlayer.getScoreCard().getScoreCard();
-    	// TODO update score
+    	// update score
     	int score = 0;
     	for (int i = 0; i < TOTAL_NUM_OF_DICE; i++) {
     		if (diceVals[i] == 2) {
@@ -926,12 +985,21 @@ public class GameplayController implements Initializable {
 		}
 	}
 	
+	/**
+	 * checks for all dice combos
+	 * @param p
+	 * @param diceVals
+	 */
 	public void checkForDiceCombos(Player p, int [] diceVals) {
 		checkForUpperSectionCombos(p, diceVals);
 		checkForLowerSectionCombos(p, diceVals);
 	}
 	
-	// this will only check which upper section combos have already been used by the given player
+	/**
+	 * this will only check which upper section combos have already been used by the given player
+	 * @param p
+	 * @param diceVals
+	 */
 	public void checkForUpperSectionCombos(Player p, int [] diceVals) {
 		Hashtable <String, Integer> scoreCard = p.getScoreCard().getScoreCard();
 		
@@ -966,6 +1034,11 @@ public class GameplayController implements Initializable {
 		}
 	}
 	
+	/**
+	 * Checks only the lower section combos
+	 * @param p
+	 * @param diceVals
+	 */
 	public void checkForLowerSectionCombos(Player p, int [] diceVals) {
 		this.checkForCombosWithMatches(diceVals);
 		this.checkForSmallStraight(diceVals);
@@ -973,7 +1046,10 @@ public class GameplayController implements Initializable {
 		this.checkForChance(p);
 	}
 	
-	// checks for three of a kind, four of a kind, and full house
+	/**
+	 * checks for three of a kind, four of a kind, and full house
+	 * @param diceVals
+	 */
 	public void checkForCombosWithMatches(int [] diceVals) {
 		// store how many of each die value the player has
 		HashMap <Integer, Integer> tally = new HashMap<>();
@@ -1049,6 +1125,10 @@ public class GameplayController implements Initializable {
 		this.smallBttn.setDisable(false);
 	}
 	
+	/**
+	 * Checks for large straight
+	 * @param diceVals
+	 */
 	public void checkForLargeStraight(int [] diceVals) {
 		Player curPlayer = match.getCurrentPlayer();
 		// check if player already has large straight slot filled
@@ -1069,30 +1149,9 @@ public class GameplayController implements Initializable {
 		this.largeBttn.setDisable(false);
 	}
 	
-//	public void finishGame() {
-//		finalizeScoreCards();
-//		determineWinner();
-//	}
-//	
-//	public void finalizeScoreCards() {
-//		
-//	}
-//	
-//	// Find which player has the highest grand total
-//	public void determineWinner() {
-//		ArrayList <Player> players = match.getPlayers();
-//		Player winner = players.get(0);
-//		int highScore = winner.getScoreCard().getGrandTotal();
-//		for (int i = 1; i < players.size(); i++) {
-//			Player curPlayer = players.get(i);
-//			int curPlayerScore = curPlayer.getScoreCard().getGrandTotal();
-//			if (curPlayerScore > highScore) {
-//				highScore = curPlayerScore;
-//				winner = curPlayer;
-//			}
-//		}
-//	}
-	
+	/**
+	 * Handles changing turns
+	 */
 	public void changeToNextTurn() {
 		//System.out.println(match.getCurrentPlayer().getScoreCard().toString());
 		
@@ -1111,6 +1170,9 @@ public class GameplayController implements Initializable {
 		this.resetButtonsForNextPlayer();
 	}
 	
+	/**
+	 * resets buttons for next player
+	 */
 	public void resetButtonsForNextPlayer() {
 		// remove toggles for each die
 		this.hideAllRadioButtons();
@@ -1125,6 +1187,9 @@ public class GameplayController implements Initializable {
 		this.goToNextBttn.setDisable(true);
 	}
 
+	/**
+	 * disables combo buttons
+	 */
 	void disableComboButtons() {
 		this.endRollPhaseBttn.setDisable(true);
 		this.chanceBttn.setDisable(true);
@@ -1142,6 +1207,9 @@ public class GameplayController implements Initializable {
 		this.sixesBttn.setDisable(true);
 	}
 	
+	/**
+	 * hides dice images
+	 */
 	void hideDiceImages() {
 		this.diceImageView1.setVisible(false);
 		this.diceImageView2.setVisible(false);
@@ -1150,6 +1218,9 @@ public class GameplayController implements Initializable {
 		this.diceImageView5.setVisible(false);
 	}
 	
+	/**
+	 * shows dice images
+	 */
 	void showDiceImages() {
 		this.diceImageView1.setVisible(true);
 		this.diceImageView2.setVisible(true);
@@ -1158,6 +1229,9 @@ public class GameplayController implements Initializable {
 		this.diceImageView5.setVisible(true);
 	}
 	
+	/**
+	 * sets all radio buttons to reroll
+	 */
 	void setAllRadioButtonsToReroll() {
 		this.dice1KeepRadio.setSelected(false);
 		this.dice2KeepRadio.setSelected(false);
@@ -1173,6 +1247,11 @@ public class GameplayController implements Initializable {
 	}
 	
 	@Override
+	/**
+	 * the initialize method
+	 * @param arg0
+	 * @param arg1
+	 */
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		this.gModel = new GameplayModel();
 		
