@@ -849,7 +849,9 @@ public class GameplayController implements Initializable {
     		scoreCard.put("Yahtzee", score);
     		this.playerSelectedCombo("Yahtzee", score);
     	} else {
-    		
+    		if (!trueYahtzee) {
+    			return;
+    		}
     		
     		// if player has already used their Yahtzee slot
     		// figure out what kind of Yahtzee it is (i.e. all 1's, all 2's, etc.)

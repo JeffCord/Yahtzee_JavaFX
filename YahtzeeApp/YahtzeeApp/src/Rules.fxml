@@ -6,11 +6,11 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="600.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane prefHeight="600.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controller.RulesController">
    <children>
-      <AnchorPane prefHeight="600.0" prefWidth="600.0" style="-fx-background-color: red;">
+      <AnchorPane fx:id="mainAnchorPane" prefHeight="600.0" prefWidth="600.0" style="-fx-background-color: red;">
          <children>
-            <Button fx:id="homeB" layoutX="39.0" layoutY="32.0" mnemonicParsing="false" onMouseClicked="#goHome" text="Home" />
+            <Button fx:id="homeBttn" layoutX="39.0" layoutY="32.0" mnemonicParsing="false" onMouseClicked="#homeBttnPressed" text="Home" />
             <TextArea layoutX="19.0" layoutY="150.0" prefHeight="434.0" prefWidth="563.0" text="This is a game where each player rolls 5 dice each turn to fill all 13 &#10;categories on their scorecard.&#10;ON A TURN: A player can roll their dice up to 3 times, choosing to keep &#10;all or some of their dice or reroll. At the end, the player chooses which &#10;box on their scorecard to fill. If they are not able to fill one, they have to &#10;choose one to default to zero.&#10;SPECIAL SCORING: Full house (3 of one number and 2 of another &#10;number), Small Straight (sequence of 4 numbers), Large Straight &#10;(sequence of 5 numbers), Yahtzee (5 of the same number), Chance (total &#10;of any 5 dice), Yahtzee Bonus (If the corresponding Upper section &#10;category is not filled then you must score there, otherwise you can put &#10;the score anywhere on the Upper Section (scoring zero). For the Small &#10;Straight, Large Straight, and Full House categories, you would score 30, &#10;40 and 25 points respectively.&#10;TO WIN: The game ends when all players have all 13 categories on&#10;their scorecareds filled. The player with the highest total score wins.">
                <font>
                   <Font size="16.0" />

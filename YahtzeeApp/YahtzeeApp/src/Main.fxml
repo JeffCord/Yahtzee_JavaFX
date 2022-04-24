@@ -5,16 +5,16 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-
-<AnchorPane fx:id="mainAnchorPane" prefHeight="600.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/17" fx:controller="application.controller.MainController">
+<AnchorPane fx:id="mainAnchorPane" prefHeight="600.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controller.MainController">
    <children>
       <Button fx:id="newGameBtn" layoutX="261.0" layoutY="287.0" mnemonicParsing="false" onAction="#newGameBtnPressed" text="New Game" />
       <Button fx:id="loadGameBtn" layoutX="260.0" layoutY="335.0" mnemonicParsing="false" onAction="#loadBtnPressed" text="Load Game" />
-      <Button fx:id="quitBtn" layoutX="260.0" layoutY="382.0" mnemonicParsing="false" onAction="#quitBtnPressed" prefHeight="26.0" prefWidth="80.0" text="Quit" />
+      <Button fx:id="quitBtn" layoutX="261.0" layoutY="430.0" mnemonicParsing="false" onAction="#quitBtnPressed" prefHeight="26.0" prefWidth="80.0" text="Quit" />
       <Label alignment="CENTER" contentDisplay="CENTER" layoutX="127.0" layoutY="101.0" prefHeight="109.0" prefWidth="347.0" text="Yahtzee">
          <font>
             <Font size="96.0" />
          </font>
       </Label>
+      <Button fx:id="howToPlayBttn" alignment="CENTER" contentDisplay="CENTER" layoutX="259.0" layoutY="383.0" mnemonicParsing="false" onMouseClicked="#howToPlayBttnPressed" text="How to Play" />
    </children>
 </AnchorPane>

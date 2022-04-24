@@ -11,6 +11,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.fxml.Initializable;
 import javafx.stage.Stage;
@@ -27,6 +28,9 @@ import javafx.scene.Scene;
 
 public class MainController implements Initializable {
 
+	@FXML
+    private Button howToPlayBttn;
+    
 	@FXML
     private AnchorPane mainAnchorPane;
 
@@ -66,6 +70,24 @@ public class MainController implements Initializable {
     	}
     }
 
+    @FXML
+    /**
+     * handler for how to play button
+     * @param event
+     */
+    void howToPlayBttnPressed(MouseEvent event) {
+    	try {
+	    	URL url = new File("src/Rules.fxml").toURI().toURL(); // get the fxml file
+			mainAnchorPane = FXMLLoader.load(url); // load the new pane
+	    	Scene scene = new Scene(mainAnchorPane); // set the new scene
+	    	Stage window = (Stage) ((Node)event.getSource()).getScene().getWindow(); // set the new stage
+	    	window.setScene(scene); // place new stage on new stage
+	    	window.show(); // display the new stage
+    	} catch (IOException e) {
+    		System.out.println("ERROR: could not find Rules.fxml file");
+    	}
+    }
+    
     @FXML
     /**
      * handler for quit button
